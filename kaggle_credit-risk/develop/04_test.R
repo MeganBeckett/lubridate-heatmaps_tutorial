@@ -1,10 +1,10 @@
 # Test model on training set
-prediction <- predict(model, app_train, type = "response")
+prediction <- predict(model, app_train2, type = "response")
 summary(prediction)
 
-confusion = table(app_train$TARGET, prediction >= 0.0807)
+confusion = table(app_train2$TARGET, prediction >= 0.0807)
 confusion
 
 
 # Run model on testing set
-TARGET <- predict(model, app_test, type = "response")
+TARGET <- predict(model, app_test2, type = "response")
