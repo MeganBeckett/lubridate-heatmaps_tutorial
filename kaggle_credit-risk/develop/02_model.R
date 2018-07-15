@@ -12,15 +12,12 @@ importance
 
 # Model 2
 # Select some of the important varaibles from Model 1
-model2 = glm(TARGET~NAME_CONTRACT_TYPE + CODE_GENDER + FLAG_OWN_CAR + AMT_CREDIT + 
+model <- glm(TARGET~NAME_CONTRACT_TYPE + CODE_GENDER + FLAG_OWN_CAR + AMT_CREDIT + 
                AMT_GOODS_PRICE + NAME_EDUCATION_TYPE + REGION_POPULATION_RELATIVE + DAYS_BIRTH +
-               DAYS_EMPLOYED + DAYS_REGISTRATION + DAYS_ID_PUBLISH, data = data, family = binomial )
+               DAYS_EMPLOYED + DAYS_REGISTRATION + DAYS_ID_PUBLISH, data = data, family = binomial)
 
-prediction <- predict(model2, data, type = "response")
-summary(prediction)
-
-confusion = table(data$TARGET, prediction >= 0.0807)
-confusion
-
+# Model 3
+# Logistc regression 
+model <- glm(TARGET ~., data=app_train2, family = binomial)
 
 

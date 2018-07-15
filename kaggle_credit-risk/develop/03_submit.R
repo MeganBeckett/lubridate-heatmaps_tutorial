@@ -1,6 +1,3 @@
-# Run model on testing set
-TARGET <- predict(model2, app_test, type = "response")
-
 # Create submission file
 submission <- cbind(app_test, TARGET)
 sub_vars <- c("SK_ID_CURR", "TARGET")

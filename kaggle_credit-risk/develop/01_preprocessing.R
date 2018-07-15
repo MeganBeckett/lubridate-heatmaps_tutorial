@@ -6,9 +6,15 @@ app_train$DAYS_EMPLOYED <- replace(app_train$DAYS_EMPLOYED,app_train$DAYS_EMPLOY
 app_test$DAYS_EMPLOYED <- replace(app_test$DAYS_EMPLOYED,app_test$DAYS_EMPLOYED == 365243,NA)
 
 # Handling missing values
-# Decision made to replace missing categi=orical variables with another level ("Not available") and convert to factors
-# For numeric, decision made to replace with 0 for now as most NA values are related to not having aproperty so should be 0
-# Note to self: Try in future to replace with median of column
+# Decision made to replace missing categorical variables with another level ("Not available") and convert to factors
+# Replacing NA with median of column values
+
+# Define median function
+NA2median <- function(x){
+  if(is.numeric(x)){
+    replace(x, is.na(x), median(x, na.rm=TRUE))
+  }
+}
 
 # Training data
 chr <- app_train[, sapply(app_train, is.character)]
@@ -20,8 +26,9 @@ fac <- chr %>%
   lapply(as.factor) %>% 
   as_data_frame()
 
-app_train <- bind_cols(fac, num)
-app_train[is.na(app_train)] <- 0
+num <- replace(app_train, TRUE, lapply(app_train, NA2median))
+app_train2 <- bind_cols(fac, num)
+
 
 # Testing data 
 chr <- app_test[, sapply(app_test, is.character)]
@@ -33,5 +40,5 @@ fac <- chr %>%
   lapply(as.factor) %>% 
   as_data_frame()
 
-app_test <- bind_cols(fac, num)
-app_test[is.na(app_test)] <- 0
+num <- replace(app_test, TRUE, lapply(app_test, NA2median))
+app_test2 <- bind_cols(fac, num)
