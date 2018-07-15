@@ -4,6 +4,7 @@ library(readr)
 library(ggplot2)
 library(tidyr)
 library(skimr)
+library(GGally)
 
 # Read data ----------------------------------------------
 app_train <- read.csv("raw_data/application_train.csv")
@@ -30,9 +31,9 @@ missing_val_per <- missing_val_abs/nrow(app_train)*100
 colnames <- colnames(app_train)
 missing_summary <- subset(data.frame(missing_val_abs, missing_val_per), missing_val_per > 40)
 # >>> There are 67 variables with missing values
-# >>> 49 variables have over 40% missing values
+# >>> 49 variables have over 40% missing values - these are mostly variables associated with having property
 
-# Exploring some (important?) variable distributions -------------------------------------------
+# Exploring some (important?) variable distributions with summaries and plots -------------------------------------------
 # Target variable - classification
 app_train %>%  
   count(TARGET) %>%
@@ -136,6 +137,15 @@ employed_outliers <- subset(app_train, DAYS_EMPLOYED > 0)
 employed_normal <- subset(app_train, DAYS_EMPLOYED <= 0)
 summary(employed_outliers$TARGET)
 summary(employed_normal$TARGET)
-# >>> The outliers only default on 5.4% of loans whereas those with reasonable employment records, don't repay 8.66% of time
-# >>> Investigate later by replacing these values with NA before imputation to replace missing values
+# >>> The outliers (all have same value of 365243 days) only default on 5.4% of loans whereas those with reasonable employment records, don't repay 8.66% of time
+# >>> Investigate later by replacing these values with NA before imputation to replace missing values and see if has an effect.
 
+# Exploring correlations between each variable and TARGET  -------------------------------------------
+
+ggcorr(app_train[,2:40])
+ggcorr(app_train[,c(2,41:80)])
+ggcorr(app_train[,c(2,81:122)])
+
+cor(app_train$TARGET, app_train[])
+
+glm(TARGET ~ ., data=app_train, family=binomial)
