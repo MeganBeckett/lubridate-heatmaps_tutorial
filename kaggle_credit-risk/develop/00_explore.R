@@ -4,11 +4,10 @@ library(readr)
 library(ggplot2)
 library(tidyr)
 library(skimr)
-library(GGally)
 
 # Read data ----------------------------------------------
-app_train <- read.csv("raw_data/application_train.csv")
-app_test <- read.csv("raw_data/application_test.csv")
+app_train <- read_csv("raw_data/application_train.csv")
+app_test <- read_csv("raw_data/application_test.csv")
 # >>> read_csv is faster but prefer taking advantage of read.csv() coercing characters to factors from beginning
 
 # Explore Application_train data set -------------------------------------------
@@ -19,7 +18,7 @@ skim(app_train)
 
 # Variable types
 table(sapply(app_train, class))
-# >>> There are 16 categorical variables
+# >>> There are 16 categorical (character) variables
 
 # Missing values -------------------------------------------
 # Total missing values
