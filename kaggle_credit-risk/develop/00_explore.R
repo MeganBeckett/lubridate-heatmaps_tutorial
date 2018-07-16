@@ -10,6 +10,9 @@ app_train <- read_csv("raw_data/application_train.csv")
 app_test <- read_csv("raw_data/application_test.csv")
 # >>> read_csv is faster but prefer taking advantage of read.csv() coercing characters to factors from beginning
 
+app_prev <- read_csv("raw_data/previous_application.csv")
+bureau <- read_csv("raw_data/bureau.csv")
+  
 # Explore Application_train data set -------------------------------------------
 glimpse(app_train)
 str(app_train)
@@ -145,6 +148,20 @@ ggcorr(app_train[,2:40])
 ggcorr(app_train[,c(2,41:80)])
 ggcorr(app_train[,c(2,81:122)])
 
-cor(app_train$TARGET, app_train[])
+# Exploring additional datasets
+summary(bureau)
+summary(app_prev)
 
-glm(TARGET ~ ., data=app_train, family=binomial)
+unique(bureau$CREDIT_ACTIVE)
+unique(app_prev$CODE_REJECT_REASON)
+unique(app_prev$NAME_CONTRACT_STATUS)
+
+# Create a summary table of previous loans in the credit bureua where I group by each current loan ID,
+# then calculate the total number of previous loans, the total current debt on the Credit Bureau and the total
+# current amount overdue on Credit Bureau credit
+
+bureau_summary = bureau %>%
+  group_by(SK_ID_CURR) %>%
+  summarise(total_prev_loans = n(), 
+            total_AMT_CREDIT_SUM_DEBT = sum(AMT_CREDIT_SUM_DEBT),
+            total_AMT_CREDIT_SUM_OVERDUE = sum(AMT_CREDIT_SUM_OVERDUE))
