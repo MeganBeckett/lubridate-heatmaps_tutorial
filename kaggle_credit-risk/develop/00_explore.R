@@ -156,12 +156,3 @@ unique(bureau$CREDIT_ACTIVE)
 unique(app_prev$CODE_REJECT_REASON)
 unique(app_prev$NAME_CONTRACT_STATUS)
 
-# Create a summary table of previous loans in the credit bureua where I group by each current loan ID,
-# then calculate the total number of previous loans, the total current debt on the Credit Bureau and the total
-# current amount overdue on Credit Bureau credit
-
-bureau_summary = bureau %>%
-  group_by(SK_ID_CURR) %>%
-  summarise(total_prev_loans = n(), 
-            total_AMT_CREDIT_SUM_DEBT = sum(AMT_CREDIT_SUM_DEBT),
-            total_AMT_CREDIT_SUM_OVERDUE = sum(AMT_CREDIT_SUM_OVERDUE))

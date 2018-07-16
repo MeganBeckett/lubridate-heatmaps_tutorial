@@ -44,16 +44,3 @@ fac <- chr %>%
 num <- replace(app_test, TRUE, lapply(app_test, NA2median))
 app_test2 <- bind_cols(fac, num)
 
-# Removing near zero variance variables ----------------------------------------------
-# Use raw data sets to find near zero variance predictors, setting conservative uniqueCut = 1
-# And then remove columns from imputed datasets
-nzv_summary <- nearZeroVar(app_train, names = TRUE, uniqueCut = 1, saveMetrics = TRUE)
-remove_cols_nzv <- nearZeroVar(app_train, names = TRUE, uniqueCut = 1)
-
-# Training data
-all_cols <- names(app_train)
-app_train3 <- app_train2[, setdiff(all_cols, remove_cols)]
-
-# Testsing data
-all_cols <- names(app_test)
-app_test3 <- app_test2[, setdiff(all_cols, remove_cols)]
