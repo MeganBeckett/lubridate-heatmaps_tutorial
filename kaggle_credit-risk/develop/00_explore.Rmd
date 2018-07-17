@@ -2,15 +2,16 @@
 title: "Home Credit Default Risk"
 author: "Megan Beckett"
 date: "16 July 2018"
-output: 
+output:
+  html_document:
+    df_print: paged
+    toc: yes
   html_notebook:
-    number_sections: true
-    fig_caption: true
-    toc: true
-    fig_width: 7
-    fig_height: 4.5
-    theme: cosmo
     code_folding: hide
+    fig_height: 4.5
+    fig_width: 7
+    number_sections: yes
+    toc: yes
 ---
 # Introduction
 The purpose of this notebook is to show my approach, exploration and findings for the Kaggle competition being run by Home Credit with the question:
@@ -28,7 +29,7 @@ This notebook includes my exploratory data analysis (step 00) and the subsequent
 - **04_submit:** Code for creating Kaggle submission file
 
 # Set up
-### Load packages required
+## Load packages required
 Other packages required in subsequent steps are at the top of the relevant R_script.
 
 ```{r, message=FALSE,warning=FALSE}
@@ -38,22 +39,21 @@ library(ggplot2)
 library(tidyr)
 library(skimr)
 library(DT)
-library(knitr)
 ```
 
-#### Read in datasets
+## Read in datasets
 These are app_train, app_test and bureau.
 
 ```{r, echo=TRUE, results='hide'}
-app_train <- read_csv("raw_data/application_train.csv")
-app_test <- read_csv("raw_data/application_test.csv")
-bureau <- read_csv("raw_data/bureau.csv")
-app_prev <- read_csv("raw_data/previous_application.csv")
+app_train <- read_csv("../raw_data/application_train.csv")
+app_test <- read_csv("../raw_data/application_test.csv")
+bureau <- read_csv("../raw_data/bureau.csv")
+app_prev <- read_csv("../raw_data/previous_application.csv")
 ```
 
 # Overview of dataset
 
-### Summaries
+## Summaries
 Notes:
 
 - I normally use a combination of str(), summary(), glimpse() to do this and recently explored skim() of which the results are shown here.
@@ -68,7 +68,7 @@ skim(app_train)
 
 ```
 
-### Data types of variables
+## Data types of variables
 ```{r}
 table(sapply(app_train, class))
 ```
@@ -79,7 +79,7 @@ Notes:
 - If I'd used read.csv, they could be converted automatically to factors, but read_csv is much faster.
 
 # Exploring missing values
-### Total missing values
+## Total missing values
 
 ```{r}
 # Total missing values
@@ -87,7 +87,7 @@ total_missing = sum(is.na(app_train))
 print(c("Total missing values in application train dataset:", total_missing))
 ```
 
-### Missing values per variable
+## Missing values per variable
 
 ```{r}
 # Absolute missing values per column
@@ -97,8 +97,8 @@ missing_val_per <- missing_val_abs/nrow(app_train)*100
 # Get column names
 colnames <- colnames(app_train)
 # Create dataframe of missing values and display as datatable
-subset(data.frame(missing_val_abs, missing_val_per), missing_val_per>0) %>%
-  datatable(filter = 'top', colnames = c('Total missing values', 'Percentage missing values'), 
+missing_summary = subset(data.frame(missing_val_abs, missing_val_per), missing_val_per>0) 
+missing_summary %>% datatable(filter = 'top', colnames = c('Total missing values', 'Percentage missing values'), 
             options = list(pageLength = 15, autoWidth = F, order = list(2, 'desc')))
 ```
 
@@ -178,7 +178,7 @@ summary(app_train$AMT_INCOME_TOTAL)
 summary(app_test$AMT_INCOME_TOTAL)
 ```
 
-Notes: There is a really large outlier at over $100 000 000 for total income. It seems unlikely that such an individual would be applying for a loan and this could be a mistake.
+Notes: There is a really large outlier of 117000000 for total income. It seems unlikely that such an individual would be applying for a loan and this could be a mistake. Consider replacing with NA during data cleaning.
 
 ## Categorical variable exploration {.tabset .tabset-fade .tabset-pills}
 
@@ -334,7 +334,9 @@ Notes:
 # A quick look at additional datasets
 
 ## Bureau
+
 ```{r}
+summary(bureau)
 skim(bureau)
 ```
 
@@ -346,7 +348,13 @@ unique(bureau$CREDIT_ACTIVE)
 
 Notes:
 
-- 
+- After first doing a logistic regression using only the applications data set, I am going to see what features I can create from the Bureau data set by grouping according to the loan id and then calculating some sums of numerical values of interest.
+- I think the interesting ones to look at are:
+- CREDIT_DAY_OVERDUE: Number of days past due on CB credit at the time of application for related loan in our sample
+- AMT_CREDIT_SUM: Current credit amount for the Credit Bureau credit
+- AMT_CREDIT_SUM_DEBT: Current debt on Credit Bureau credit
+- AMT_CREDIT_SUM_OVERDUE: Current amount overdue on Credit Bureau credit
+
 
 ## Previous application
 
