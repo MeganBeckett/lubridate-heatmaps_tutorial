@@ -8,7 +8,6 @@ library(skimr)
 # Read data ----------------------------------------------
 app_train <- read_csv("raw_data/application_train.csv")
 app_test <- read_csv("raw_data/application_test.csv")
-# >>> read_csv is faster but prefer taking advantage of read.csv() coercing characters to factors from beginning
 
 app_prev <- read_csv("raw_data/previous_application.csv")
 bureau <- read_csv("raw_data/bureau.csv")
@@ -32,6 +31,7 @@ missing_val_abs <- colSums(is.na(app_train))
 missing_val_per <- missing_val_abs/nrow(app_train)*100
 colnames <- colnames(app_train)
 missing_summary <- subset(data.frame(missing_val_abs, missing_val_per), missing_val_per > 40)
+missing_summary %>% order_by(desc(missing_val_per))
 # >>> There are 67 variables with missing values
 # >>> 49 variables have over 40% missing values - these are mostly variables associated with having property
 
@@ -48,6 +48,34 @@ app_train %>%
 # >>> Binary classification (0 if loan repaid, 1 if loan not repaid)
 # >>> There are many more loans paid on time than there aren't
 
+# Quantitative variables
+# Distribution of amount of credit 
+ggplot(app_train, aes(AMT_CREDIT)) + 
+  geom_histogram() +
+  ggtitle("Distribution of credit amount of loan")
+
+# Distribution of loan annuity 
+ggplot(app_train, aes(AMT_ANNUITY)) + 
+  geom_histogram() +
+  ggtitle("Distribution of loan annuity amount")
+
+# Distribution of goods price
+ggplot(app_train, aes(AMT_GOODS_PRICE)) + 
+  geom_histogram() +
+  ggtitle("Distribution of the price of goods amount for which loan is given")
+
+# Income distribution
+ggplot(app_train, aes(AMT_INCOME_TOTAL)) + 
+  geom_histogram(bins= 1000) +
+  xlim(0,1000000) +
+  ggtitle("Distribution of income of applicant")
+summary(app_train$AMT_INCOME_TOTAL)
+summary(app_test$AMT_INCOME_TOTAL)
+# There is a really large outlier at over $100 000 000
+# It seems unlikely that such an individual would be applying for a loan and this could be a mistake
+# Note: All for of the above numerical variables are right skewed - further analyses to transform these during preprocessing
+
+# Categorical variable distributions
 # Type of loan contract applied for
 app_train %>%  
   count(NAME_CONTRACT_TYPE) %>%
@@ -148,7 +176,7 @@ ggcorr(app_train[,2:40])
 ggcorr(app_train[,c(2,41:80)])
 ggcorr(app_train[,c(2,81:122)])
 
-# Exploring additional datasets
+# Exploring additional datasets -------------------------------------------
 summary(bureau)
 summary(app_prev)
 
