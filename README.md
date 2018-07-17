@@ -1,2 +1,3 @@
 # megan_analytics
-Personal analytics projects
+
+Personal analytics projects, namely Kaggle competitions.
