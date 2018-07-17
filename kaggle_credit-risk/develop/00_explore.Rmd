@@ -3,9 +3,6 @@ title: "Home Credit Default Risk"
 author: "Megan Beckett"
 date: "16 July 2018"
 output:
-  html_document:
-    df_print: paged
-    toc: yes
   html_notebook:
     code_folding: hide
     fig_height: 4.5
