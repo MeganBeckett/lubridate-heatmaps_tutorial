@@ -9,6 +9,7 @@ output:
     fig_width: 7
     number_sections: yes
     toc: yes
+    css: ../includes/summarytools/summarytools.css
 ---
 # Introduction
 The purpose of this notebook is to show my approach, exploration and findings for the Kaggle competition being run by Home Credit with the question:
@@ -36,6 +37,7 @@ library(ggplot2)
 library(tidyr)
 library(skimr)
 library(DT)
+library(summarytools)
 ```
 
 ## Read in datasets
@@ -53,15 +55,24 @@ app_prev <- read_csv("../raw_data/previous_application.csv")
 ## Summaries
 Notes:
 
-- I normally use a combination of str(), summary(), glimpse() to do this and recently explored skim() of which the results are shown here.
-- I like how it splits the summary statistics across variable type and shows a basic histogram for numerical types. 
+- I normally use a combination of str(), summary(), glimpse() to do this and recently explored skim().
+- For **skim()**, I like how it splits the summary statistics across variable type and shows a basic histogram for numerical types.
 - Missing values are also shown and this, along with the histograms, gives some indication of what to explore further.
+- Subsequent to this, I have now used the package **summarytools** and specifically, dfSummary(). The histogram plots are even better (although render quite small) and the developers are working to improve the html output to work with Rmarkdown. 
+- See this vignette: https://cran.r-project.org/web/packages/summarytools/vignettes/Recommendations-rmarkdown.html
 
 ```{r}
 #str(app_train)
 #summary(app_train)
 #glimpse(app_train)
-skim(app_train)
+#skim(app_train)
+
+```
+
+View data using dfSummary() from summarytools package.
+
+```{r, results = 'asis', message=FALSE, warning=FALSE}
+view(dfSummary(app_train), method = 'render')
 
 ```
 
