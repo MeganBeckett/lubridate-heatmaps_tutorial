@@ -1,0 +1,52 @@
+---
+title: "R-Ladies Cape Town: What's in a date?"
+author: "Megan Beckett"
+date: "16 August 2018"
+output:
+  html_notebook:
+    fig_height: 4.5
+    fig_width: 7
+    toc: yes
+---
+# Overview
+Date-time data can be frustrating to work with in R. R commands for date-times are generally unintuitive and change depending on the type of date-time object being used. Moreover, the methods we use with date-times must be robust to time zones, leap days, daylight savings times, and other time related quirks, and R lacks these capabilities in some situations. Lubridate makes it easier to do the things R does with date-times and possible to do the things R does not.
+
+# Resources
+- Make sure you check out the very handy R-Studio cheatsheet: https://rawgit.com/rstudio/cheatsheets/master/lubridate.pdf
+- The chapter in R for Data Science on dates and times: http://r4ds.had.co.nz/dates-and-times.html
+
+# Lubridate tutorial
+Let's explore some of the functions within the lubridate package.
+
+## But first, installation!
+```{r}
+# The easiest way to get lubridate is to install the whole tidyverse:
+install.packages("tidyverse")
+
+# Alternatively, install just lubridate:
+install.packages("lubridate")
+
+# Or the the development version from GitHub:
+# install.packages("devtools")
+devtools::install_github("tidyverse/lubridate")
+
+# Load pacage
+```
+
+## Load package
+```{r}
+library(lubridate)
+```
+
+
+# Case study: Heatmap of running activities
+# Read in data
+
+```{r}
+activities = read.csv("data/Activities.csv", stringsAsFactors = FALSE)
+head(activities)
+str(activities)
+summary(activities)
+```
+
+
