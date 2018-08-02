@@ -10,7 +10,7 @@ importance
 
 prediction <- predict(model, newdata = testing, type = "response")
 accuracy <- table(prediction, testing[, "TARGET"])
-confusionMatrix(prediction, testing$TARGET, positive = 1)
+confusionMatrix(data=table(prediction, testing$TARGET))
 
 #summary(prediction)
 

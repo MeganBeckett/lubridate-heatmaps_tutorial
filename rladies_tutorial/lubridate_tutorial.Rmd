@@ -40,7 +40,7 @@ library(lubridate)
 
 
 # Case study: Heatmap of running activities
-# Read in data
+## Read in and explore data
 
 ```{r}
 activities = read.csv("data/Activities.csv", stringsAsFactors = FALSE)
@@ -49,4 +49,5 @@ str(activities)
 summary(activities)
 ```
 
+## Tidy up data
 
