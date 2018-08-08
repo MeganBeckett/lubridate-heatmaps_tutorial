@@ -184,7 +184,14 @@ $(document).ready(function () {
 <li><a href="#resources">Resources</a></li>
 <li><a href="#lubridate-tutorial">Lubridate tutorial</a><ul>
 <li><a href="#but-first-installation">But first, installation!</a></li>
-<li><a href="#load-package">Load package</a></li>
+<li><a href="#load-package">Load package</a><ul>
+<li><a href="#quick-note">Quick note:</a></li>
+</ul></li>
+<li><a href="#lubridate-features">Lubridate features</a><ul>
+<li><a href="#reference-points">Reference points</a></li>
+<li><a href="#parsing-dates-and-times">Parsing dates and times</a></li>
+<li><a href="#extracting-information-from-date-times">Extracting information from date-times</a></li>
+</ul></li>
 </ul></li>
 <li><a href="#case-study-heatmap-of-running-activities">Case study: Heatmap of running activities</a><ul>
 <li><a href="#read-in-and-explore-data">Read in and explore data</a></li>
@@ -212,7 +219,7 @@ $(document).ready(function () {
 <h2>But first, installation!</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBUaGUgZWFzaWVzdCB3YXkgdG8gZ2V0IGx1YnJpZGF0ZSBpcyB0byBpbnN0YWxsIHRoZSB3aG9sZSB0aWR5dmVyc2U6XG5pbnN0YWxsLnBhY2thZ2VzKFwidGlkeXZlcnNlXCIpXG5cbiMgQWx0ZXJuYXRpdmVseSwgaW5zdGFsbCBqdXN0IGx1YnJpZGF0ZTpcbmluc3RhbGwucGFja2FnZXMoXCJsdWJyaWRhdGVcIilcblxuIyBPciB0aGUgdGhlIGRldmVsb3BtZW50IHZlcnNpb24gZnJvbSBHaXRIdWI6XG4jIGluc3RhbGwucGFja2FnZXMoXCJkZXZ0b29sc1wiKVxuZGV2dG9vbHM6Omluc3RhbGxfZ2l0aHViKFwidGlkeXZlcnNlL2x1YnJpZGF0ZVwiKVxuXG4jIExvYWQgcGFjYWdlXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBUaGUgZWFzaWVzdCB3YXkgdG8gZ2V0IGx1YnJpZGF0ZSBpcyB0byBpbnN0YWxsIHRoZSB3aG9sZSB0aWR5dmVyc2U6XG5pbnN0YWxsLnBhY2thZ2VzKFwidGlkeXZlcnNlXCIpXG5cbiMgQWx0ZXJuYXRpdmVseSwgaW5zdGFsbCBqdXN0IGx1YnJpZGF0ZTpcbmluc3RhbGwucGFja2FnZXMoXCJsdWJyaWRhdGVcIilcblxuIyBPciB0aGUgdGhlIGRldmVsb3BtZW50IHZlcnNpb24gZnJvbSBHaXRIdWI6XG4jIGluc3RhbGwucGFja2FnZXMoXCJkZXZ0b29sc1wiKVxuZGV2dG9vbHM6Omluc3RhbGxfZ2l0aHViKFwidGlkeXZlcnNlL2x1YnJpZGF0ZVwiKVxuYGBgIn0= -->
 <pre class="r"><code># The easiest way to get lubridate is to install the whole tidyverse:
 install.packages(&quot;tidyverse&quot;)
 
@@ -221,22 +228,205 @@ install.packages(&quot;lubridate&quot;)
 
 # Or the the development version from GitHub:
 # install.packages(&quot;devtools&quot;)
-devtools::install_github(&quot;tidyverse/lubridate&quot;)
-
-# Load pacage</code></pre>
+devtools::install_github(&quot;tidyverse/lubridate&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>Some of these functions can be done usng strptime and strftime in base R but we will be focusing on lubridate.</p>
 </div>
 <div id="load-package" class="section level2">
 <h2>Load package</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShsdWJyaWRhdGUpXG5gYGAifQ== -->
-<pre class="r"><code>library(lubridate)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShsdWJyaWRhdGUpXG5cbmBgYCJ9 -->
+<pre class="r"><code>library(lubridate)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5BdHRhY2hpbmcgcGFja2FnZTog4oCYbHVicmlkYXRl4oCZXG5cblRoZSBmb2xsb3dpbmcgb2JqZWN0IGlzIG1hc2tlZCBmcm9tIOKAmHBhY2thZ2U6YmFzZeKAmTpcblxuICAgIGRhdGVcbiJ9 -->
+<pre><code>
+Attaching package: ‘lubridate’
+
+The following object is masked from ‘package:base’:
+
+    date</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<div id="quick-note" class="section level3">
+<h3>Quick note:</h3>
+<p>POSI….what? There are two internal implementations of date/time: POSIXct, which stores seconds since UNIX epoch (+some other data), and POSIXlt, which stores a list of day, month, year, hour, minute, second, etc.</p>
+</div>
+</div>
+<div id="lubridate-features" class="section level2">
+<h2>Lubridate features</h2>
+<div id="reference-points" class="section level3">
+<h3>Reference points</h3>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudG9kYXkgPSB0b2RheSgpXG50b2RheVxubm93ID0gbm93KClcbm5vd1xuYGBgIn0= -->
+<pre class="r"><code>today = today()
+today
+now = now()
+now</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+</div>
+<div id="parsing-dates-and-times" class="section level3">
+<h3>Parsing dates and times</h3>
+<p>To create POSIXlt objects from strings, lubridate has a number of aptly named functions: - ymd(), ymd_hms, dmy(), dmy_hms, mdy(), …</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxueW1kKFwiMjAxODA4MDlcIilcbmBgYCJ9 -->
+<pre class="r"><code>ymd(&quot;20180809&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMjAxOC0wOC0wOVwiXG4ifQ== -->
+<pre><code>[1] &quot;2018-08-09&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWR5KFwiMDgtMDktMjAxOFwiKVxuYGBgIn0= -->
+<pre class="r"><code>mdy(&quot;08-09-2018&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMjAxOC0wOC0wOVwiXG4ifQ== -->
+<pre><code>[1] &quot;2018-08-09&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZG15KFwiMDkvMDgvMjAxOFwiKVxuYGBgIn0= -->
+<pre class="r"><code>dmy(&quot;09/08/2018&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMjAxOC0wOC0wOVwiXG4ifQ== -->
+<pre><code>[1] &quot;2018-08-09&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBZb3UgdHJ5XG5cbiMgUGFyc2UgYXMgZGF0ZVxuX19fKFwiMTcgU2VwIDIwMThcIilcblxuX19fXyhcIk1hcmNoIDYsIDE5NTdcIilcblxuIyBQYXJzZSBhcyBkYXRlIGFuZCB0aW1lICh3aXRoIG5vIHNlY29uZHMhKVxuX19fX18oXCJKdWx5IDE1LCAyMDEyIDEyOjU2XCIpXG5cbiMgUGFyc2UgYXMgZGF0ZS10aW1lICh3aXRoIHNlY29uZHMpXG5fX19fX18oJzIwMTEtMDQtMDYgMDg6MDA6MTAnKVxuXG4jIFBhcnNlIGFsbCBhcyBkYXRlc1xueCA8LSBjKFwiMjAwOS0wMS0wMVwiLCBcIjIwMDktMDEtMDJcIiwgXCIyMDA5LTAxLTAzXCIpXG5fX18oeClcblxuIyBGb3JtYXQgdG8gZGlzcGxheSBkYXRlIGFzIFwiMjAxOC0wMS0wMVwiXG5fX18oMTgwMTAxLCAxODAxMDIpXG5cbiMgRm9ybWF0IHRvIGRpc3BsYXkgXCIyMDEwLTAyLTAxXCJcbl9fXygwMTAyMTApXG5cbiMgRm9ybWF0IHRvIGRpc3BsYXkgXCIyMDEwLTAxLTAyXCJcbl9fXygwMTAyMTApXG5cbmBgYCJ9 -->
+<pre class="r"><code># You try
+
+# Parse as date
+___(&quot;17 Sep 2018&quot;)
+
+____(&quot;March 6, 1957&quot;)
+
+# Parse as date and time (with no seconds!)
+_____(&quot;July 15, 2012 12:56&quot;)
+
+# Parse as date-time (with seconds)
+______('2011-04-06 08:00:10')
+
+# Parse all as dates
+x &lt;- c(&quot;2009-01-01&quot;, &quot;2009-01-02&quot;, &quot;2009-01-03&quot;)
+___(x)
+
+# Format to display date as &quot;2018-01-01&quot;
+___(180101, 180102)
+
+# Format to display &quot;2010-02-01&quot;
+___(010210)
+
+# Format to display &quot;2010-01-02&quot;
+___(010210)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>You see that these functions contain the formatting of the string in their name. In addition, they are robust in which separators are used (e.g. : or -). Note that you can set the tz input argument to set the timezone.</p>
+</div>
+<div id="extracting-information-from-date-times" class="section level3">
+<h3>Extracting information from date-times</h3>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud29tZW5zZGF5PC15bWRfaG1zKFwiMjAxOC0wOC0wOS0xMi0zMC0zMFwiLCB0ej1cIkdNVFwiKVxud29tZW5zZGF5XG5gYGAifQ== -->
+<pre class="r"><code>womensday&lt;-ymd_hms(&quot;2018-08-09-12-30-30&quot;, tz=&quot;GMT&quot;)
+womensday</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMjAxOC0wOC0wOSAxMjozMDozMCBHTVRcIlxuIn0= -->
+<pre><code>[1] &quot;2018-08-09 12:30:30 GMT&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBFeHRyYWN0IG9ubHkgdGhlIGRhdGVcbmRhdGUod29tZW5zZGF5KVxuYGBgIn0= -->
+<pre class="r"><code># Extract only the date
+date(womensday)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMjAxOC0wOC0wOVwiXG4ifQ== -->
+<pre><code>[1] &quot;2018-08-09&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBJcyBpdCBhIGxlYXAgeWVhcj9cbmxlYXBfeWVhcih3b21lbnNkYXkpXG5gYGAifQ== -->
+<pre class="r"><code># Is it a leap year?
+leap_year(womensday)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIEZBTFNFXG4ifQ== -->
+<pre><code>[1] FALSE</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Getting useful information using functions such as year(), month(), mday(), hour(), minute() and second():</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxueWVhcih3b21lbnNkYXkpXG5gYGAifQ== -->
+<pre class="r"><code>year(womensday)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDIwMThcbiJ9 -->
+<pre><code>[1] 2018</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW9udGgod29tZW5zZGF5KVxuYGBgIn0= -->
+<pre class="r"><code>month(womensday)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDhcbiJ9 -->
+<pre><code>[1] 8</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud2Vlayh3b21lbnNkYXkpXG5gYGAifQ== -->
+<pre class="r"><code>week(womensday)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDMyXG4ifQ== -->
+<pre><code>[1] 32</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud2RheSh3b21lbnNkYXkpXG5gYGAifQ== -->
+<pre class="r"><code>wday(womensday)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDVcbiJ9 -->
+<pre><code>[1] 5</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud2RheSh3b21lbnNkYXksIGxhYmVsPVRSVUUpXG5gYGAifQ== -->
+<pre class="r"><code>wday(womensday, label=TRUE)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFRodVxuTGV2ZWxzOiBTdW4gPCBNb24gPCBUdWUgPCBXZWQgPCBUaHUgPCBGcmkgPCBTYXRcbiJ9 -->
+<pre><code>[1] Thu
+Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxueWRheSh3b21lbnNkYXkpXG5gYGAifQ== -->
+<pre class="r"><code>yday(womensday)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDIyMVxuIn0= -->
+<pre><code>[1] 221</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaG91cih3b21lbnNkYXkpXG5gYGAifQ== -->
+<pre class="r"><code>hour(womensday)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDEyXG4ifQ== -->
+<pre><code>[1] 12</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBZb3UgdHJ5XG4jIFNhdmUgeW91ciBiaXJ0aGRheSBhcyBhIGRhdGUtdGltZSBvYmplY3QgKG1ha2UgdXAgYSB0aW1lIGlmIHlvdSBkb24ndCBrbm93ISlcbmJkYXkgPC0gX19fX19fXygpXG5cbiMgV2hhdCBudW1iZXIgd2VlayBpbiB0aGUgeWVhciB3ZXJlIHlvdSBib3JuP1xuX19fX18oYmRheSlcblxuIyBXaGF0IG51bWJlciBkYXkgaW4gdGhlIHllYXIgd2VyZSB5b3UgYm9yblxuX19fXyhiZGF5KVxuXG4jIFdlcmUgeW91IGJvcm4gaW4gYSBsZWFwIHllYXI/XG5fX19fKGJkYXkpXG5cbiMgV2hhdCBkYXkgb2YgdGhlIHdlZWsgd2VyZSB5b3UgYm9ybj8gUHJpbnQgb3V0IHRoZSBmdWxsLCB1bmFiYnJldmlhdGVkIHdlZWtkYXlcbl9fX18oYmRheSlcblxuXG5gYGAifQ== -->
+<pre class="r"><code># You try
+# Save your birthday as a date-time object (make up a time if you don't know!)
+bday &lt;- _______()
+
+# What number week in the year were you born?
+_____(bday)
+
+# What number day in the year were you born
+____(bday)
+
+# Were you born in a leap year?
+____(bday)
+
+# What day of the week were you born? Print out the full, unabbreviated weekday
+____(bday)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
 </div>
 </div>
 <div id="case-study-heatmap-of-running-activities" class="section level1">
@@ -303,7 +493,7 @@ devtools::install_github(&quot;tidyverse/lubridate&quot;)
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUi1MYWRpZXMgQ2FwZSBUb3duOiBXaGF0J3MgaW4gYSBkYXRlPyIKYXV0aG9yOiAiTWVnYW4gQmVja2V0dCIKZGF0ZTogIjE2IEF1Z3VzdCAyMDE4IgpvdXRwdXQ6CiAgaHRtbF9ub3RlYm9vazoKICAgIGZpZ19oZWlnaHQ6IDQuNQogICAgZmlnX3dpZHRoOiA3CiAgICB0b2M6IHllcwotLS0KIyBPdmVydmlldwpEYXRlLXRpbWUgZGF0YSBjYW4gYmUgZnJ1c3RyYXRpbmcgdG8gd29yayB3aXRoIGluIFIuIFIgY29tbWFuZHMgZm9yIGRhdGUtdGltZXMgYXJlIGdlbmVyYWxseSB1bmludHVpdGl2ZSBhbmQgY2hhbmdlIGRlcGVuZGluZyBvbiB0aGUgdHlwZSBvZiBkYXRlLXRpbWUgb2JqZWN0IGJlaW5nIHVzZWQuIE1vcmVvdmVyLCB0aGUgbWV0aG9kcyB3ZSB1c2Ugd2l0aCBkYXRlLXRpbWVzIG11c3QgYmUgcm9idXN0IHRvIHRpbWUgem9uZXMsIGxlYXAgZGF5cywgZGF5bGlnaHQgc2F2aW5ncyB0aW1lcywgYW5kIG90aGVyIHRpbWUgcmVsYXRlZCBxdWlya3MsIGFuZCBSIGxhY2tzIHRoZXNlIGNhcGFiaWxpdGllcyBpbiBzb21lIHNpdHVhdGlvbnMuIEx1YnJpZGF0ZSBtYWtlcyBpdCBlYXNpZXIgdG8gZG8gdGhlIHRoaW5ncyBSIGRvZXMgd2l0aCBkYXRlLXRpbWVzIGFuZCBwb3NzaWJsZSB0byBkbyB0aGUgdGhpbmdzIFIgZG9lcyBub3QuCgojIFJlc291cmNlcwotIE1ha2Ugc3VyZSB5b3UgY2hlY2sgb3V0IHRoZSB2ZXJ5IGhhbmR5IFItU3R1ZGlvIGNoZWF0c2hlZXQ6IGh0dHBzOi8vcmF3Z2l0LmNvbS9yc3R1ZGlvL2NoZWF0c2hlZXRzL21hc3Rlci9sdWJyaWRhdGUucGRmCi0gVGhlIGNoYXB0ZXIgaW4gUiBmb3IgRGF0YSBTY2llbmNlIG9uIGRhdGVzIGFuZCB0aW1lczogaHR0cDovL3I0ZHMuaGFkLmNvLm56L2RhdGVzLWFuZC10aW1lcy5odG1sCgojIEx1YnJpZGF0ZSB0dXRvcmlhbApMZXQncyBleHBsb3JlIHNvbWUgb2YgdGhlIGZ1bmN0aW9ucyB3aXRoaW4gdGhlIGx1YnJpZGF0ZSBwYWNrYWdlLgoKIyMgQnV0IGZpcnN0LCBpbnN0YWxsYXRpb24hCmBgYHtyfQojIFRoZSBlYXNpZXN0IHdheSB0byBnZXQgbHVicmlkYXRlIGlzIHRvIGluc3RhbGwgdGhlIHdob2xlIHRpZHl2ZXJzZToKaW5zdGFsbC5wYWNrYWdlcygidGlkeXZlcnNlIikKCiMgQWx0ZXJuYXRpdmVseSwgaW5zdGFsbCBqdXN0IGx1YnJpZGF0ZToKaW5zdGFsbC5wYWNrYWdlcygibHVicmlkYXRlIikKCiMgT3IgdGhlIHRoZSBkZXZlbG9wbWVudCB2ZXJzaW9uIGZyb20gR2l0SHViOgojIGluc3RhbGwucGFja2FnZXMoImRldnRvb2xzIikKZGV2dG9vbHM6Omluc3RhbGxfZ2l0aHViKCJ0aWR5dmVyc2UvbHVicmlkYXRlIikKCiMgTG9hZCBwYWNhZ2UKYGBgCgojIyBMb2FkIHBhY2thZ2UKYGBge3J9CmxpYnJhcnkobHVicmlkYXRlKQpgYGAKCgojIENhc2Ugc3R1ZHk6IEhlYXRtYXAgb2YgcnVubmluZyBhY3Rpdml0aWVzCiMjIFJlYWQgaW4gYW5kIGV4cGxvcmUgZGF0YQoKYGBge3J9CmFjdGl2aXRpZXMgPSByZWFkLmNzdigiZGF0YS9BY3Rpdml0aWVzLmNzdiIsIHN0cmluZ3NBc0ZhY3RvcnMgPSBGQUxTRSkKaGVhZChhY3Rpdml0aWVzKQpzdHIoYWN0aXZpdGllcykKc3VtbWFyeShhY3Rpdml0aWVzKQpgYGAKCiMjIFRpZHkgdXAgZGF0YQoK</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUi1MYWRpZXMgQ2FwZSBUb3duOiBXaGF0J3MgaW4gYSBkYXRlPyIKYXV0aG9yOiAiTWVnYW4gQmVja2V0dCIKZGF0ZTogIjE2IEF1Z3VzdCAyMDE4IgpvdXRwdXQ6CiAgaHRtbF9ub3RlYm9vazoKICAgIGZpZ19oZWlnaHQ6IDQuNQogICAgZmlnX3dpZHRoOiA3CiAgICB0b2M6IHllcwotLS0KIyBPdmVydmlldwpEYXRlLXRpbWUgZGF0YSBjYW4gYmUgZnJ1c3RyYXRpbmcgdG8gd29yayB3aXRoIGluIFIuIFIgY29tbWFuZHMgZm9yIGRhdGUtdGltZXMgYXJlIGdlbmVyYWxseSB1bmludHVpdGl2ZSBhbmQgY2hhbmdlIGRlcGVuZGluZyBvbiB0aGUgdHlwZSBvZiBkYXRlLXRpbWUgb2JqZWN0IGJlaW5nIHVzZWQuIE1vcmVvdmVyLCB0aGUgbWV0aG9kcyB3ZSB1c2Ugd2l0aCBkYXRlLXRpbWVzIG11c3QgYmUgcm9idXN0IHRvIHRpbWUgem9uZXMsIGxlYXAgZGF5cywgZGF5bGlnaHQgc2F2aW5ncyB0aW1lcywgYW5kIG90aGVyIHRpbWUgcmVsYXRlZCBxdWlya3MsIGFuZCBSIGxhY2tzIHRoZXNlIGNhcGFiaWxpdGllcyBpbiBzb21lIHNpdHVhdGlvbnMuIEx1YnJpZGF0ZSBtYWtlcyBpdCBlYXNpZXIgdG8gZG8gdGhlIHRoaW5ncyBSIGRvZXMgd2l0aCBkYXRlLXRpbWVzIGFuZCBwb3NzaWJsZSB0byBkbyB0aGUgdGhpbmdzIFIgZG9lcyBub3QuCgojIFJlc291cmNlcwotIE1ha2Ugc3VyZSB5b3UgY2hlY2sgb3V0IHRoZSB2ZXJ5IGhhbmR5IFItU3R1ZGlvIGNoZWF0c2hlZXQ6IGh0dHBzOi8vcmF3Z2l0LmNvbS9yc3R1ZGlvL2NoZWF0c2hlZXRzL21hc3Rlci9sdWJyaWRhdGUucGRmCi0gVGhlIGNoYXB0ZXIgaW4gUiBmb3IgRGF0YSBTY2llbmNlIG9uIGRhdGVzIGFuZCB0aW1lczogaHR0cDovL3I0ZHMuaGFkLmNvLm56L2RhdGVzLWFuZC10aW1lcy5odG1sCgojIEx1YnJpZGF0ZSB0dXRvcmlhbApMZXQncyBleHBsb3JlIHNvbWUgb2YgdGhlIGZ1bmN0aW9ucyB3aXRoaW4gdGhlIGx1YnJpZGF0ZSBwYWNrYWdlLgoKIyMgQnV0IGZpcnN0LCBpbnN0YWxsYXRpb24hCmBgYHtyfQojIFRoZSBlYXNpZXN0IHdheSB0byBnZXQgbHVicmlkYXRlIGlzIHRvIGluc3RhbGwgdGhlIHdob2xlIHRpZHl2ZXJzZToKaW5zdGFsbC5wYWNrYWdlcygidGlkeXZlcnNlIikKCiMgQWx0ZXJuYXRpdmVseSwgaW5zdGFsbCBqdXN0IGx1YnJpZGF0ZToKaW5zdGFsbC5wYWNrYWdlcygibHVicmlkYXRlIikKCiMgT3IgdGhlIHRoZSBkZXZlbG9wbWVudCB2ZXJzaW9uIGZyb20gR2l0SHViOgojIGluc3RhbGwucGFja2FnZXMoImRldnRvb2xzIikKZGV2dG9vbHM6Omluc3RhbGxfZ2l0aHViKCJ0aWR5dmVyc2UvbHVicmlkYXRlIikKYGBgCgpTb21lIG9mIHRoZXNlIGZ1bmN0aW9ucyBjYW4gYmUgZG9uZSB1c25nIHN0cnB0aW1lIGFuZCBzdHJmdGltZSBpbiBiYXNlIFIgYnV0IHdlIHdpbGwgYmUgZm9jdXNpbmcgb24gbHVicmlkYXRlLgoKIyMgTG9hZCBwYWNrYWdlCmBgYHtyfQpsaWJyYXJ5KGx1YnJpZGF0ZSkKYGBgCiMjIyBRdWljayBub3RlOgpQT1NJLi4uLndoYXQ/ClRoZXJlIGFyZSB0d28gaW50ZXJuYWwgaW1wbGVtZW50YXRpb25zIG9mIGRhdGUvdGltZTogUE9TSVhjdCwgd2hpY2ggc3RvcmVzIHNlY29uZHMgc2luY2UgVU5JWCBlcG9jaCAoK3NvbWUgb3RoZXIgZGF0YSksIGFuZCBQT1NJWGx0LCB3aGljaCBzdG9yZXMgYSBsaXN0IG9mIGRheSwgbW9udGgsIHllYXIsIGhvdXIsIG1pbnV0ZSwgc2Vjb25kLCBldGMuCgojIyBMdWJyaWRhdGUgZmVhdHVyZXMKIyMjIFJlZmVyZW5jZSBwb2ludHMKYGBge3J9CnRvZGF5ID0gdG9kYXkoKQp0b2RheQpub3cgPSBub3coKQpub3cKYGBgCgojIyMgUGFyc2luZyBkYXRlcyBhbmQgdGltZXMKVG8gY3JlYXRlIFBPU0lYbHQgb2JqZWN0cyBmcm9tIHN0cmluZ3MsIGx1YnJpZGF0ZSBoYXMgYSBudW1iZXIgb2YgYXB0bHkgbmFtZWQgZnVuY3Rpb25zOgotIHltZCgpLCB5bWRfaG1zLCBkbXkoKSwgZG15X2htcywgbWR5KCksIOKApgoKYGBge3J9CiMgV2hlbiBpcyBXb21lbidzIGRheT8KCnltZCgiMjAxODA4MDkiKQptZHkoIjA4LTA5LTIwMTgiKQpkbXkoIjA5LzA4LzIwMTgiKQpgYGAKCmBgYHtyfQojIFlvdSB0cnkKCiMgUGFyc2UgYXMgZGF0ZQpfX18oIjE3IFNlcCAyMDE4IikKCl9fX18oIk1hcmNoIDYsIDE5NTciKQoKIyBQYXJzZSBhcyBkYXRlIGFuZCB0aW1lICh3aXRoIG5vIHNlY29uZHMhKQpfX19fXygiSnVseSAxNSwgMjAxMiAxMjo1NiIpCgojIFBhcnNlIGFzIGRhdGUtdGltZSAod2l0aCBzZWNvbmRzKQpfX19fX18oJzIwMTEtMDQtMDYgMDg6MDA6MTAnKQoKIyBQYXJzZSBhbGwgYXMgZGF0ZXMKeCA8LSBjKCIyMDA5LTAxLTAxIiwgIjIwMDktMDEtMDIiLCAiMjAwOS0wMS0wMyIpCl9fXyh4KQoKIyBGb3JtYXQgdG8gZGlzcGxheSBkYXRlIGFzICIyMDE4LTAxLTAxIgpfX18oMTgwMTAxLCAxODAxMDIpCgojIEZvcm1hdCB0byBkaXNwbGF5ICIyMDEwLTAyLTAxIgpfX18oMDEwMjEwKQoKIyBGb3JtYXQgdG8gZGlzcGxheSAiMjAxMC0wMS0wMiIKX19fKDAxMDIxMCkKCmBgYApZb3Ugc2VlIHRoYXQgdGhlc2UgZnVuY3Rpb25zIGNvbnRhaW4gdGhlIGZvcm1hdHRpbmcgb2YgdGhlIHN0cmluZyBpbiB0aGVpciBuYW1lLiBJbiBhZGRpdGlvbiwgdGhleSBhcmUgcm9idXN0IGluIHdoaWNoIHNlcGFyYXRvcnMgYXJlIHVzZWQgKGUuZy4gOiBvciAgLSkuIE5vdGUgdGhhdCB5b3UgY2FuIHNldCB0aGUgdHogaW5wdXQgYXJndW1lbnQgdG8gc2V0IHRoZSB0aW1lem9uZS4KCiMjIyBFeHRyYWN0aW5nIGluZm9ybWF0aW9uIGZyb20gZGF0ZS10aW1lcwoKYGBge3J9CndvbWVuc2RheTwteW1kX2htcygiMjAxOC0wOC0wOS0xMi0zMC0zMCIsIHR6PSJHTVQiKQp3b21lbnNkYXkKCiMgRXh0cmFjdCBvbmx5IHRoZSBkYXRlCmRhdGUod29tZW5zZGF5KQoKIyBJcyBpdCBhIGxlYXAgeWVhcj8KbGVhcF95ZWFyKHdvbWVuc2RheSkKYGBgCgpHZXR0aW5nIHVzZWZ1bCBpbmZvcm1hdGlvbiB1c2luZyBmdW5jdGlvbnMgc3VjaCBhcyB5ZWFyKCksIG1vbnRoKCksIG1kYXkoKSwgaG91cigpLCBtaW51dGUoKSBhbmQgc2Vjb25kKCk6CgpgYGB7cn0KeWVhcih3b21lbnNkYXkpCm1vbnRoKHdvbWVuc2RheSkKd2Vlayh3b21lbnNkYXkpCndkYXkod29tZW5zZGF5KQp3ZGF5KHdvbWVuc2RheSwgbGFiZWw9VFJVRSkKeWRheSh3b21lbnNkYXkpCmhvdXIod29tZW5zZGF5KQoKYGBgCmBgYHtyfQojIFlvdSB0cnkKIyBTYXZlIHlvdXIgYmlydGhkYXkgYXMgYSBkYXRlLXRpbWUgb2JqZWN0IChtYWtlIHVwIGEgdGltZSBpZiB5b3UgZG9uJ3Qga25vdyEpCmJkYXkgPC0gX19fX19fXygpCgojIFdoYXQgbnVtYmVyIHdlZWsgaW4gdGhlIHllYXIgd2VyZSB5b3UgYm9ybj8KX19fX18oYmRheSkKCiMgV2hhdCBudW1iZXIgZGF5IGluIHRoZSB5ZWFyIHdlcmUgeW91IGJvcm4KX19fXyhiZGF5KQoKIyBXZXJlIHlvdSBib3JuIGluIGEgbGVhcCB5ZWFyPwpfX19fKGJkYXkpCgojIFdoYXQgZGF5IG9mIHRoZSB3ZWVrIHdlcmUgeW91IGJvcm4/IFByaW50IG91dCB0aGUgZnVsbCwgdW5hYmJyZXZpYXRlZCB3ZWVrZGF5Cl9fX18oYmRheSkKCgpgYGAKCiMgQ2FzZSBzdHVkeTogSGVhdG1hcCBvZiBydW5uaW5nIGFjdGl2aXRpZXMKIyMgUmVhZCBpbiBhbmQgZXhwbG9yZSBkYXRhCgpgYGB7cn0KYWN0aXZpdGllcyA9IHJlYWQuY3N2KCJkYXRhL0FjdGl2aXRpZXMuY3N2Iiwgc3RyaW5nc0FzRmFjdG9ycyA9IEZBTFNFKQpoZWFkKGFjdGl2aXRpZXMpCnN0cihhY3Rpdml0aWVzKQpzdW1tYXJ5KGFjdGl2aXRpZXMpCmBgYAoKIyMgVGlkeSB1cCBkYXRhCgo=</div>
 
 
 
