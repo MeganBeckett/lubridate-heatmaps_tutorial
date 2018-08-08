@@ -105,6 +105,7 @@ date(womensday)
 leap_year(womensday)
 ```
 
+### GET components of date-times
 Getting useful information using functions such as year(), month(), mday(), hour(), minute() and second():
 
 ```{r}
@@ -136,6 +137,37 @@ ____(bday)
 
 
 ```
+
+### SET components of date-time
+Lubridate can be used to not only extract but also change prts of date-time objects
+
+```{r}
+month(womensday) <- 12
+womensday
+
+second(womensday) <-99
+womensday
+
+# Use update to change multple values
+update(womensday, year = 1976, day = 16, month = 6, hour = 8)
+
+```
+
+```{r}
+# You try
+# Change your birth date to your birthday this year
+
+_____(bday) <- ____
+bday
+
+```
+
+### Arithmetic with dates
+#### Some important time spans
+- interval
+- duration
+- period
+
 
 # Case study: Heatmap of running activities
 ## Read in and explore data
