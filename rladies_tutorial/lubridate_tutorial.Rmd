@@ -170,14 +170,55 @@ bday
 
 
 # Case study: Heatmap of running activities
-## Read in and explore data
+## Load additional packages needed
+```{r}
+library(dplyr)
+library(ggplot2)
+library(skimr)
+library(summarytools)
+```
+
+## Read in data
+```{r}
+activities <- read.csv("data/Activities.csv", stringsAsFactors = FALSE)
+```
+
+## Initial view of data
+Notes:
+- I normally use a combination of str(), summary(), glimpse() to do this and recently explored skim().
+- For **skim()**, I like how it splits the summary statistics across variable type and shows a basic histogram for numerical types.
+- Missing values are also shown and this, along with the histograms, gives some indication of what to explore further.
+- Subsequent to this, I have now used the package **summarytools** and specifically, dfSummary(). The histogram plots are even better (although render quite small) and the developers are working to improve the html output to work with Rmarkdown. 
+- See this vignette: https://cran.r-project.org/web/packages/summarytools/vignettes/Recommendations-rmarkdown.html
 
 ```{r}
-activities = read.csv("data/Activities.csv", stringsAsFactors = FALSE)
-head(activities)
-str(activities)
-summary(activities)
+dim(activities)
+#str(activities)
+#summary(activities)
+glimpse(activities)
+#skim(activities)
 ```
 
 ## Tidy up data
+Many of the columns are empty so let's create a smaller subset.
+```{r}
+# Create subset of variables
+activities <- subset(activities, select = c(Activity.Type, Date, Distance, Calories, Time, Avg.HR, 
+                                            Max.HR, Avg.Run.Cadence, Max.Run.Cadence, Avg.Pace, Best.Pace,
+                                            Elev.Gain, Elev.Loss))
+
+# View the classes of the subset of data
+lapply(activities, class)
+```
+
+read.csv imported some of the the numbers, dates and times as characters, so let's fix this.
+
+```{r}
+
+```
+
+View data again using summarytools package
+```{r}
+view(dfSummary(activities), method = 'render')
+```
 
