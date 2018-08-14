@@ -1,0 +1,98 @@
+---
+title: "Case Study: Running activities"
+author: "Megan Beckett"
+date: "16 August 2018"
+output:
+  html_notebook:
+    fig_height: 4.5
+    fig_width: 7
+    toc: yes
+---
+# Case study: Heatmap of running activities
+
+This follows on from investigating the lubridate package within the tidyverse and putting some of the features into practice by looking at running activity data over time.
+
+## Load packages needed
+```{r}
+library(lubridate)
+library(dplyr)
+library(ggplot2)
+library(skimr)
+library(summarytools)
+```
+
+## Read in data
+```{r}
+activities <- read.csv("data/Activities.csv", stringsAsFactors = FALSE)
+```
+
+## Initial view of data
+Notes:
+- I normally use a combination of str(), summary(), glimpse() to do this and recently explored skim().
+- For **skim()**, I like how it splits the summary statistics across variable type and shows a basic histogram for numerical types.
+- Missing values are also shown and this, along with the histograms, gives some indication of what to explore further.
+- Subsequent to this, I have now used the package **summarytools** and specifically, dfSummary(). The histogram plots are even better (although render quite small) and the developers are working to improve the html output to work with Rmarkdown. 
+- See this vignette: https://cran.r-project.org/web/packages/summarytools/vignettes/Recommendations-rmarkdown.html
+
+```{r}
+dim(activities)
+#str(activities)
+#summary(activities)
+glimpse(activities)
+#skim(activities)
+```
+
+## Tidy up data
+### Subset
+Many of the columns are empty so let's create a smaller subset.
+```{r}
+# Create subset of variables
+running <- subset(activities, select = c(Activity.Type, Date, Distance, Calories, Time, 
+                                            Avg.Pace, Elev.Gain))
+
+# View the classes of the subset of data
+lapply(running, class)
+```
+
+### Data types
+read.csv imported some of the the numbers, dates and times as characters, so let's fix this. Also, convert Activity.Type to factor to see if there is more than one level.
+
+```{r}
+# Numeric values
+# Substitute 1000 comma separator then convert to numeric
+running$Calories <- as.numeric(gsub(",", "", running$Calories))
+running$Elev.Gain <- as.numeric(gsub(",", "", running$Elev.Gain))
+
+# Date-time columns (Date, Time, Avg.Pace, Best.Pace)
+running$Date = ymd_hms(activities$Date)
+
+# TODO Figure out how to convert different time durations to actual times 
+#running$Duration <- ms(running$Time)
+#running$Avg.Pace <- ms(running$Avg.Pace)
+#running$Best.Pace <- ms(running$Best.Pace)
+
+# Convert activity type to factor
+running$Activity.Type <- as.factor(running$Activity.Type)
+levels(running$Activity.Type)
+```
+
+View data again using summarytools package
+```{r}
+view(dfSummary(running), method = 'render')
+```
+
+### Subset again to only look at last 3 full year's of data
+```{r}
+running <- subset(running, running$Date >= "2016-01-01")
+```
+
+## Create new data-time variables
+```{r}
+running$year <- year(running$Date)
+running$month <- month(running$Date, label=TRUE)
+running$week <- week(running$Date)
+running$wkday <- wday(running$Date, label=TRUE)
+running$hour <- hour(running$Date)
+
+```
+
