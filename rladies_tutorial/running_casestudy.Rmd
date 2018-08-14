@@ -127,6 +127,7 @@ hour = c(0:23)
 grid = expand.grid(week, hour)
 
 # Join grid and heatmap_runs
+# If you don't do this, heatmap won't show the full week, and have blank tiles for missing values instead of rather showing 0 runs/activity
 heatmap_runs_full = heatmap_no_runs %>%
   right_join(grid, by = c("wday"="Var1", "hour"="Var2")) 
 
