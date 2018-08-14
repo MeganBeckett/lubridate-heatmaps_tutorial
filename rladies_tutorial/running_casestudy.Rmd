@@ -8,11 +8,13 @@ output:
     fig_width: 7
     toc: yes
 ---
-# Case study: Heatmap of running activities
+# Introduction
 
 This follows on from investigating the lubridate package within the tidyverse and putting some of the features into practice by looking at running activity data over time.
 
-## Load packages needed
+I was interested to investigate some ways of plott my running activities over time. The data is a csv export from Garmin Connect.
+
+# Load packages needed
 ```{r}
 library(lubridate)
 library(dplyr)
@@ -21,12 +23,12 @@ library(skimr)
 library(summarytools)
 ```
 
-## Read in data
+# Read in data
 ```{r}
 activities <- read.csv("data/Activities.csv", stringsAsFactors = FALSE)
 ```
 
-## Initial view of data
+# Initial view of data
 Notes:
 - I normally use a combination of str(), summary(), glimpse() to do this and recently explored skim().
 - For **skim()**, I like how it splits the summary statistics across variable type and shows a basic histogram for numerical types.
@@ -42,9 +44,9 @@ glimpse(activities)
 #skim(activities)
 ```
 
-## Tidy up data
-### Subset
-Many of the columns are empty so let's create a smaller subset.
+# Tidy up data
+## Extract variables of interest
+Many of the columns are empty so let's create a smaller subset of those we are interested in
 ```{r}
 # Create subset of variables
 running <- subset(activities, select = c(Activity.Type, Date, Distance, Calories, Time, 
@@ -54,7 +56,7 @@ running <- subset(activities, select = c(Activity.Type, Date, Distance, Calories
 lapply(running, class)
 ```
 
-### Data types
+## Transform data types
 read.csv imported some of the the numbers, dates and times as characters, so let's fix this. Also, convert Activity.Type to factor to see if there is more than one level.
 
 ```{r}
@@ -81,18 +83,67 @@ View data again using summarytools package
 view(dfSummary(running), method = 'render')
 ```
 
-### Subset again to only look at last 3 full year's of data
+## Subset again to only look at last 3 full year's of data
 ```{r}
 running <- subset(running, running$Date >= "2016-01-01")
 ```
 
-## Create new data-time variables
+# Create new variables
 ```{r}
 running$year <- year(running$Date)
 running$month <- month(running$Date, label=TRUE)
 running$week <- week(running$Date)
-running$wkday <- wday(running$Date, label=TRUE)
+running$wday <- wday(running$Date, label=TRUE, abbr=FALSE)
 running$hour <- hour(running$Date)
 
+week <- c("Sunday", "Saturday", "Friday", "Thursday", "Wednesday", "Tuesday", "Monday")
+running$wday <- factor(running$wday, levels = week)
 ```
+
+# Exploratory visualisation
+Use dplyr to group and summarise and and create some plots.
+
+```{r}
+# Create summary
+year_month <- running %>%
+  group_by(year, month) %>%
+  summarise(total_runs = n(), total_distance = sum(Distance))
+```
+
+```{r}
+# Plot data
+
+```
+
+# Heatmaps
+```{r}
+# Group by week day, then hour and summarise by counting number of activities per group
+heatmap_runs <- running %>% 
+  group_by(wday, hour) %>% 
+  summarise(no_runs = n())
+
+# Create a complete grid to include all possible combinations of weekday and hour even if no data
+hour = c(0:23)
+grid = expand.grid(week, hour)
+
+# Join grid and heatmap_runs
+heatmap_runs_full = heatmap_no_runs %>%
+  right_join(grid, by = c("wday"="Var1", "hour"="Var2")) 
+
+# Replace NA with 0
+heatmap_runs_full[is.na(heatmap_runs_full)] <- 0
+
+# Plot heatmap using ggplot
+# If all time then change title at end to "(all time)" otherwsie leave as paste(detail, year)
+ggplot(heatmap_runs_full, aes(x=hour, y=wday)) + 
+  geom_tile(aes(fill=no_runs), colour="white") + 
+  scale_fill_gradientn(name = "No. of runs", colours=c("white", "yellow", "orange", "red", "purple")) + 
+  scale_x_continuous(breaks=seq(0,23,1)) + ggtitle("Heatmap showing weekly activity pattern")
+```
+
+
+
+
+
+
 
