@@ -21,6 +21,7 @@ library(dplyr)
 library(ggplot2)
 library(skimr)
 library(summarytools)
+library(RColorBrewer)
 ```
 
 # Read in data
@@ -138,11 +139,21 @@ heatmap_runs_full[is.na(heatmap_runs_full)] <- 0
 # If all time then change title at end to "(all time)" otherwsie leave as paste(detail, year)
 ggplot(heatmap_runs_full, aes(x=hour, y=wday)) + 
   geom_tile(aes(fill=no_runs), colour="white") + 
-  scale_fill_gradientn(name = "No. of runs", colours=c("white", "yellow", "orange", "red", "purple")) + 
+  scale_fill_gradient(name = "No. of runs", low = "white", high =  "red") + 
   scale_x_continuous(breaks=seq(0,23,1)) + ggtitle("Heatmap showing weekly activity pattern")
 ```
 
 
+```{r}
+# Plot heatmap using ggplot
+pal <- wes_palette("Zissou1", 10, type = "continuous")
+
+# If all time then change title at end to "(all time)" otherwsie leave as paste(detail, year)
+ggplot(heatmap_runs_full, aes(x=hour, y=wday)) + 
+  geom_tile(aes(fill=no_runs), colour="white") + 
+  scale_fill_gradientn(name = "No. of runs", colours=pal) + 
+  scale_x_continuous(breaks=seq(0,23,1)) + ggtitle("Heatmap showing weekly activity pattern")
+```
 
 
 
