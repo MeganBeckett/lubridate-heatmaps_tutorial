@@ -15,7 +15,7 @@ This follows on from investigating the lubridate package within the tidyverse an
 I was interested to investigate some ways of plott my running activities over time. The data is a csv export from Garmin Connect.
 
 # Load packages needed
-```{r}
+```{r message=FALSE,warning=FALSE}
 library(lubridate)
 library(dplyr)
 library(ggplot2)
@@ -31,6 +31,7 @@ activities <- read.csv("data/Activities.csv", stringsAsFactors = FALSE)
 
 # Initial view of data
 Notes:
+
 - I normally use a combination of str(), summary(), glimpse() to do this and recently explored skim().
 - For **skim()**, I like how it splits the summary statistics across variable type and shows a basic histogram for numerical types.
 - Missing values are also shown and this, along with the histograms, gives some indication of what to explore further.
@@ -60,7 +61,7 @@ lapply(running, class)
 ## Transform data types
 read.csv imported some of the the numbers, dates and times as characters, so let's fix this. Also, convert Activity.Type to factor to see if there is more than one level.
 
-```{r}
+```{r message=FALSE,warning=FALSE}
 # Numeric values
 # Substitute 1000 comma separator then convert to numeric
 running$Calories <- as.numeric(gsub(",", "", running$Calories))
@@ -185,14 +186,14 @@ ggplot(heatmap_dist_full, aes(x=hour, y=wday)) +
   scale_x_continuous(breaks=seq(0,23,1)) + ggtitle("Heatmap showing weekly activity pattern")
 ```
 
-Mmmm...that doesn;t look right - what happened at 2pm on a Sunday?! Let's investigate.
+Mmmm...that doesn't look right - what happened at 2pm on a Sunday?! Let's investigate.
 ```{r}
 running_outliers = subset(running, Distance >=50)
 running_outliers
 
 ```
 
-As this is my own data, I know what these outliers are from! firstly, llok at the average pace of entries 345 and 352. This was not a run! These were actually cycles where I didn;t classigy the activities correctly. Secondly, the 65km entry on 13 August was when I used my Garmin watch to measure how far we travelled on a boat in Brazil :) So, let's remove these three entries. I've also never run anything longer than 60km - yet!
+Firstly, look at the average pace of entries 345 and 352. This is rather quick for a run! As this is my own data, I know what these outliers are from!  These were actually cycles where I didn't classify the activities correctly. Secondly, the 65km entry on 13 August was when I used my Garmin watch to measure how far we travelled on a boat in Brazil :) So, let's remove these three entries. 
 
 ```{r}
 running <- subset(running, Distance <=60)
