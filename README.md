@@ -1,3 +1,7 @@
-# megan_analytics
+# Megan Beckett
 
-Personal analytics projects, namely Kaggle competitions.
+Personal analytics projects, which include:
+
+- Kaggle competitions
+- Tutorials I'm designing
+- Exploratory data analysis of my running activities
