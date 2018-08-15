@@ -225,5 +225,14 @@ ggplot(heatmap_dist_full, aes(x=hour, y=wday)) +
 ggsave("results/heatmap_weekly_dist.png", width = 10, height = 7)
 ```
 
+## Calendar heat map
+
+```{r}
+source ("calendarHeat.R")
+
+calendarHeat(running$Date, running$Distance, varname = "running activities and distances", color = "y2b", ncolors=20)
+
+```
+
 
 
