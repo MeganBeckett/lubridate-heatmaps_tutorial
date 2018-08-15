@@ -4,8 +4,8 @@ author: "Megan Beckett"
 date: "16 August 2018"
 output:
   html_notebook:
-    fig_height: 4.5
-    fig_width: 7
+    fig_height: 7
+    fig_width: 10
     toc: yes
 ---
 # Introduction
@@ -117,26 +117,26 @@ year_month <- running %>%
 ```
 
 # Heatmaps
+## Weekly pattern - most popular times to run during the days of the week
 ```{r}
+# Create a complete grid to include all possible combinations of weekday and hour even if no data
+hour = c(0:23)
+grid = expand.grid(week, hour)
+
 # Group by week day, then hour and summarise by counting number of activities per group
 heatmap_runs <- running %>% 
   group_by(wday, hour) %>% 
   summarise(no_runs = n())
 
-# Create a complete grid to include all possible combinations of weekday and hour even if no data
-hour = c(0:23)
-grid = expand.grid(week, hour)
-
 # Join grid and heatmap_runs
 # If you don't do this, heatmap won't show the full week, and have blank tiles for missing values instead of rather showing 0 runs/activity
-heatmap_runs_full = heatmap_no_runs %>%
+heatmap_runs_full = heatmap_runs %>%
   right_join(grid, by = c("wday"="Var1", "hour"="Var2")) 
 
 # Replace NA with 0
 heatmap_runs_full[is.na(heatmap_runs_full)] <- 0
 
 # Plot heatmap using ggplot
-# If all time then change title at end to "(all time)" otherwsie leave as paste(detail, year)
 ggplot(heatmap_runs_full, aes(x=hour, y=wday)) + 
   geom_tile(aes(fill=no_runs), colour="white") + 
   scale_fill_gradient(name = "No. of runs", low = "white", high =  "red") + 
@@ -145,17 +145,85 @@ ggplot(heatmap_runs_full, aes(x=hour, y=wday)) +
 
 
 ```{r}
-# Plot heatmap using ggplot
-pal <- wes_palette("Zissou1", 10, type = "continuous")
+# Using ColorBrewer to generate pallette
 
-# If all time then change title at end to "(all time)" otherwsie leave as paste(detail, year)
+display.brewer.all()
+
+pal <- colorRampPalette(brewer.pal(9, "YlOrRd"))(100)
+
 ggplot(heatmap_runs_full, aes(x=hour, y=wday)) + 
   geom_tile(aes(fill=no_runs), colour="white") + 
-  scale_fill_gradientn(name = "No. of runs", colours=pal) + 
+  scale_fill_gradientn(name = "No. of runs", colours=c("white", pal)) + 
+  scale_x_continuous(breaks=seq(0,23,1)) + ggtitle("Heatmap showing weekly activity pattern")
+
+```
+
+```{r}
+# Save plot
+ggsave("results/heatmap_weekly_counts.png", width = 10, height = 7)
+```
+## Weekly pattern - average distance run at different times during the week
+
+```{r}
+# Group by week day, then hour and summarise by calculating mean distance per group
+heatmap_dist <- running %>% 
+  group_by(wday, hour) %>% 
+  summarise(mean_dist = mean(Distance))
+
+# Join grid and heatmap_dist
+heatmap_dist_full = heatmap_dist %>%
+  right_join(grid, by = c("wday"="Var1", "hour"="Var2")) 
+
+# Replace NA with 0
+heatmap_dist_full[is.na(heatmap_dist_full)] <- 0
+
+# Plot heatmap using ggplot
+pal <- colorRampPalette(brewer.pal(9, "YlGnBu"))(100)
+ggplot(heatmap_dist_full, aes(x=hour, y=wday)) + 
+  geom_tile(aes(fill=mean_dist), colour="white") + 
+  scale_fill_gradientn(name = "Mean distance", colours=c("white", pal)) + 
   scale_x_continuous(breaks=seq(0,23,1)) + ggtitle("Heatmap showing weekly activity pattern")
 ```
 
+Mmmm...that doesn;t look right - what happened at 2pm on a Sunday?! Let's investigate.
+```{r}
+running_outliers = subset(running, Distance >=50)
+running_outliers
 
+```
+
+As this is my own data, I know what these outliers are from! firstly, llok at the average pace of entries 345 and 352. This was not a run! These were actually cycles where I didn;t classigy the activities correctly. Secondly, the 65km entry on 13 August was when I used my Garmin watch to measure how far we travelled on a boat in Brazil :) So, let's remove these three entries. I've also never run anything longer than 60km - yet!
+
+```{r}
+running <- subset(running, Distance <=60)
+
+# And create the graphs again above. 
+# Repeated here just for ease of reference.
+
+# Group by week day, then hour and summarise by calculating mean distance per group
+heatmap_dist <- running %>% 
+  group_by(wday, hour) %>% 
+  summarise(mean_dist = mean(Distance))
+
+# Join grid and heatmap_dist
+heatmap_dist_full = heatmap_dist %>%
+  right_join(grid, by = c("wday"="Var1", "hour"="Var2")) 
+
+# Replace NA with 0
+heatmap_dist_full[is.na(heatmap_dist_full)] <- 0
+
+# Plot heatmap using ggplot
+pal <- colorRampPalette(brewer.pal(9, "YlGnBu"))(100)
+ggplot(heatmap_dist_full, aes(x=hour, y=wday)) + 
+  geom_tile(aes(fill=mean_dist), colour="white") + 
+  scale_fill_gradientn(name = "Mean distance", colours=c("white", pal)) + 
+  scale_x_continuous(breaks=seq(0,23,1)) + ggtitle("Heatmap showing weekly activity pattern")
+```
+
+```{r}
+# Save plot
+ggsave("results/heatmap_weekly_dist.png", width = 10, height = 7)
+```
 
 
 
