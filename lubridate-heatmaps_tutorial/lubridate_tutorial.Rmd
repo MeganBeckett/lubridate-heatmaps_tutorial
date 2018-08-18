@@ -19,7 +19,7 @@ Date-time data can be frustrating to work with in R. R commands for date-times a
 Let's explore some of the functions within the lubridate package.
 
 ## But first, installation!
-```{r}
+```{r message=FALSE,warning=FALSE}
 # The easiest way to get lubridate is to install the whole tidyverse:
 install.packages("tidyverse")
 
@@ -34,8 +34,9 @@ devtools::install_github("tidyverse/lubridate")
 Some of these functions can be done usng strptime and strftime in base R but we will be focusing on lubridate.
 
 ## Load package
-```{r}
+```{r message=FALSE,warning=FALSE}
 library(lubridate)
+
 ```
 ### Quick note:
 POSI....what?
@@ -62,7 +63,7 @@ mdy("08-09-2018")
 dmy("09/08/2018")
 ```
 
-```{r}
+```{r message=FALSE,warning=FALSE}
 # You try
 
 # Parse as date
@@ -118,7 +119,7 @@ yday(womensday)
 hour(womensday)
 
 ```
-```{r}
+```{r message=FALSE,warning=FALSE}
 # You try
 # Save your birthday as a date-time object (make up a time if you don't know!)
 bday <- _______()
@@ -153,12 +154,12 @@ youthday = update(womensday, year = 1976, day = 16, month = 6, hour = 8)
 
 ```
 
-```{r}
+```{r message=FALSE,warning=FALSE}
 # You try
 # Change your birth date to your birthday this year
 
-_____(bday) <- ____
-bday
+bday_2018 <- ____
+bday_2018
 ```
 
 ### Arithmetic with dates
@@ -205,9 +206,13 @@ d
 w <- dweeks(104)
 w
 
+# Create duration from numeric
+as.duration(100)
+
 # Create duration from a time interval
 my_int_d <- as.duration(my_int)
 my_int_d
+
 ```
 
 **periods**
@@ -234,6 +239,9 @@ minutes(2) # period
 ## 2 minutes
 dminutes(2) # duration
 ## 120s (~2 minutes)
+
+my_int_d == my_int_p
+
 ```
 
 *Comparing the "timeline" and the "number line"*
@@ -260,5 +268,48 @@ ymd(20120101) + years(1)
 ## "2013-01-01 UTC"
 ```
 
+```{r}
+# Is my date within an interval?
+
+a = ymd(20170101)
+a
+
+a %within% my_int
+
+b = a + years(1) + months(7) + days(10)
+b
+
+b %within% my_int
+```
+
+```{r}
+# You try
+
+# How many seconds in 6 months?
+
+
+# Create a period of 2 seconds and 34 milliseconds
+
+
+# Add four hours onto now and save as bedtime
+
+
+# What interval in time has passed since your birthday and now?
+
+
+# How old are you in seconds at this point in time?
+
+
+# Create an interval of time from beginning of this year to now
+
+
+# Has your birthday this year occured within this interval?
+
+
+# How long until you turn 100 years old?!
+
+
+
+```
 
 

@@ -218,19 +218,17 @@ $(document).ready(function () {
 <h2>But first, installation!</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBUaGUgZWFzaWVzdCB3YXkgdG8gZ2V0IGx1YnJpZGF0ZSBpcyB0byBpbnN0YWxsIHRoZSB3aG9sZSB0aWR5dmVyc2U6XG5pbnN0YWxsLnBhY2thZ2VzKFwidGlkeXZlcnNlXCIpXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBUaGUgZWFzaWVzdCB3YXkgdG8gZ2V0IGx1YnJpZGF0ZSBpcyB0byBpbnN0YWxsIHRoZSB3aG9sZSB0aWR5dmVyc2U6XG5pbnN0YWxsLnBhY2thZ2VzKFwidGlkeXZlcnNlXCIpXG5cbiMgQWx0ZXJuYXRpdmVseSwgaW5zdGFsbCBqdXN0IGx1YnJpZGF0ZTpcbmluc3RhbGwucGFja2FnZXMoXCJsdWJyaWRhdGVcIilcblxuIyBPciB0aGUgdGhlIGRldmVsb3BtZW50IHZlcnNpb24gZnJvbSBHaXRIdWI6XG4jIGluc3RhbGwucGFja2FnZXMoXCJkZXZ0b29sc1wiKVxuZGV2dG9vbHM6Omluc3RhbGxfZ2l0aHViKFwidGlkeXZlcnNlL2x1YnJpZGF0ZVwiKVxuYGBgIn0= -->
 <pre class="r"><code># The easiest way to get lubridate is to install the whole tidyverse:
-install.packages(&quot;tidyverse&quot;)</code></pre>
+install.packages(&quot;tidyverse&quot;)
+
+# Alternatively, install just lubridate:
+install.packages(&quot;lubridate&quot;)
+
+# Or the the development version from GitHub:
+# install.packages(&quot;devtools&quot;)
+devtools::install_github(&quot;tidyverse/lubridate&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiV2FybmluZyBtZXNzYWdlczpcbjE6IEluIHNjYW4oZmlsZSA9IGZpbGUsIHdoYXQgPSB3aGF0LCBzZXAgPSBzZXAsIHF1b3RlID0gcXVvdGUsIGRlYyA9IGRlYywgIDpcbiAgRU9GIHdpdGhpbiBxdW90ZWQgc3RyaW5nXG4yOiBJbiBzY2FuKGZpbGUgPSBmaWxlLCB3aGF0ID0gd2hhdCwgc2VwID0gc2VwLCBxdW90ZSA9IHF1b3RlLCBkZWMgPSBkZWMsICA6XG4gIEVPRiB3aXRoaW4gcXVvdGVkIHN0cmluZ1xuMzogSW4gc2NhbihmaWxlID0gZmlsZSwgd2hhdCA9IHdoYXQsIHNlcCA9IHNlcCwgcXVvdGUgPSBxdW90ZSwgZGVjID0gZGVjLCAgOlxuICBFT0Ygd2l0aGluIHF1b3RlZCBzdHJpbmdcbiJ9 -->
-<pre><code>Warning messages:
-1: In scan(file = file, what = what, sep = sep, quote = quote, dec = dec,  :
-  EOF within quoted string
-2: In scan(file = file, what = what, sep = sep, quote = quote, dec = dec,  :
-  EOF within quoted string
-3: In scan(file = file, what = what, sep = sep, quote = quote, dec = dec,  :
-  EOF within quoted string</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Some of these functions can be done usng strptime and strftime in base R but we will be focusing on lubridate.</p>
@@ -239,18 +237,9 @@ install.packages(&quot;tidyverse&quot;)</code></pre>
 <h2>Load package</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShsdWJyaWRhdGUpXG5cbmBgYCJ9 -->
-<pre class="r"><code>library(lubridate)
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShsdWJyaWRhdGUpXG5gYGAifQ== -->
+<pre class="r"><code>library(lubridate)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG5BdHRhY2hpbmcgcGFja2FnZTog4oCYbHVicmlkYXRl4oCZXG5cblRoZSBmb2xsb3dpbmcgb2JqZWN0IGlzIG1hc2tlZCBmcm9tIOKAmHBhY2thZ2U6YmFzZeKAmTpcblxuICAgIGRhdGVcbiJ9 -->
-<pre><code>
-Attaching package: ‘lubridate’
-
-The following object is masked from ‘package:base’:
-
-    date</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <div id="quick-note" class="section level3">
@@ -264,10 +253,20 @@ The following object is masked from ‘package:base’:
 <h3>Reference points</h3>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxudG9kYXkgPSB0b2RheSgpXG50b2RheVxubm93ID0gbm93KClcbm5vd1xuYGBgXG5gYGAifQ== -->
-<p><code>r</code>r today = today() today now = now() now</p>
-<pre><code></code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudG9kYXkgPSB0b2RheSgpXG50b2RheVxuYGBgIn0= -->
+<pre class="r"><code>today = today()
+today</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMjAxOC0wOC0xOFwiXG4ifQ== -->
+<pre><code>[1] &quot;2018-08-18&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubm93ID0gbm93KClcbm5vd1xuYGBgIn0= -->
+<pre class="r"><code>now = now()
+now</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMjAxOC0wOC0xOCAxMjozMDozMiBTQVNUXCJcbiJ9 -->
+<pre><code>[1] &quot;2018-08-18 12:30:32 SAST&quot;</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -276,13 +275,25 @@ The following object is masked from ‘package:base’:
 <p>To create POSIXlt objects from strings, lubridate has a number of aptly named functions: - ymd(), ymd_hms, dmy(), dmy_hms, mdy(), …</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBXaGVuIGlzIFdvbWVuJ3MgZGF5P1xuXG55bWQoXCIyMDE4MDgwOVwiKVxubWR5KFwiMDgtMDktMjAxOFwiKVxuZG15KFwiMDkvMDgvMjAxOFwiKVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBXaGVuIGlzIFdvbWVuJ3MgZGF5P1xueW1kKFwiMjAxODA4MDlcIilcbmBgYCJ9 -->
 <pre class="r"><code># When is Women's day?
-
-ymd(&quot;20180809&quot;)
-mdy(&quot;08-09-2018&quot;)
-dmy(&quot;09/08/2018&quot;)</code></pre>
+ymd(&quot;20180809&quot;)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMjAxOC0wOC0wOVwiXG4ifQ== -->
+<pre><code>[1] &quot;2018-08-09&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWR5KFwiMDgtMDktMjAxOFwiKVxuYGBgIn0= -->
+<pre class="r"><code>mdy(&quot;08-09-2018&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMjAxOC0wOC0wOVwiXG4ifQ== -->
+<pre><code>[1] &quot;2018-08-09&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZG15KFwiMDkvMDgvMjAxOFwiKVxuYGBgIn0= -->
+<pre class="r"><code>dmy(&quot;09/08/2018&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMjAxOC0wOC0wOVwiXG4ifQ== -->
+<pre><code>[1] &quot;2018-08-09&quot;</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
@@ -423,16 +434,34 @@ ____(bday)
 <p>Lubridate can be used to not only extract but also change prts of date-time objects</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW9udGgod29tZW5zZGF5KSA8LSAxMlxud29tZW5zZGF5XG5gYGAifQ== -->
+<pre class="r"><code>month(womensday) &lt;- 12
+womensday</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMjAxOC0xMi0wOSAxMjozMDozMCBHTVRcIlxuIn0= -->
+<pre><code>[1] &quot;2018-12-09 12:30:30 GMT&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2Vjb25kKHdvbWVuc2RheSkgPC05OVxud29tZW5zZGF5XG5gYGAifQ== -->
+<pre class="r"><code>second(womensday) &lt;-99
+womensday</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMjAxOC0xMi0wOSAxMjozMTozOSBHTVRcIlxuIn0= -->
+<pre><code>[1] &quot;2018-12-09 12:31:39 GMT&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBVc2UgdXBkYXRlIHRvIGNoYW5nZSBtdWx0aXBsZSB2YWx1ZXNcbnlvdXRoZGF5ID0gdXBkYXRlKHdvbWVuc2RheSwgeWVhciA9IDE5NzYsIGRheSA9IDE2LCBtb250aCA9IDYsIGhvdXIgPSA4KVxuYGBgIn0= -->
+<pre class="r"><code># Use update to change multiple values
+youthday = update(womensday, year = 1976, day = 16, month = 6, hour = 8)</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBZb3UgdHJ5XG4jIENoYW5nZSB5b3VyIGJpcnRoIGRhdGUgdG8geW91ciBiaXJ0aGRheSB0aGlzIHllYXJcblxuX19fX18oYmRheSkgPC0gX19fX1xuYmRheVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBZb3UgdHJ5XG4jIENoYW5nZSB5b3VyIGJpcnRoIGRhdGUgdG8geW91ciBiaXJ0aGRheSB0aGlzIHllYXJcblxuYmRheV8yMDE4IDwtIF9fX19cbmJkYXlfMjAxOFxuYGBgIn0= -->
 <pre class="r"><code># You try
 # Change your birth date to your birthday this year
 
-_____(bday) &lt;- ____
-bday</code></pre>
+bday_2018 &lt;- ____
+bday_2018</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -449,9 +478,34 @@ bday</code></pre>
 </ul>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudG5pXG5cbmBgYCJ9 -->
-<pre class="r"><code>tni
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDcmVhdGUgYW4gaW50ZXJ2YWwgaW4gdGltZVxubXlfaW50IDwtIGludGVydmFsKHdvbWVuc2RheSwgbm93KVxubXlfaW50XG5gYGAifQ== -->
+<pre class="r"><code># Create an interval in time
+my_int &lt;- interval(womensday, now)
+my_int</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDIwMTgtMTItMDkgMTI6MzE6MzkgR01ULS0yMDE4LTA4LTE4IDEwOjMwOjMyIEdNVFxuIn0= -->
+<pre><code>[1] 2018-12-09 12:31:39 GMT--2018-08-18 10:30:32 GMT</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBBY2Nlc3MgdGhlIHN0YXJ0IG9mIGFuIGludGVydmFsXG5zdGFydCA8LSBpbnRfc3RhcnQobXlfaW50KVxuc3RhcnRcbmBgYCJ9 -->
+<pre class="r"><code># Access the start of an interval
+start &lt;- int_start(my_int)
+start</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMjAxOC0xMi0wOSAxMjozMTozOSBHTVRcIlxuIn0= -->
+<pre><code>[1] &quot;2018-12-09 12:31:39 GMT&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBBY2Nlc3MgdGhlIGVuZCBwb2ludCBvZiBhbiBpbnRlcnZhbFxuZW5kIDwtIGludF9lbmQobXlfaW50KVxuZW5kXG5gYGAifQ== -->
+<pre class="r"><code># Access the end point of an interval
+end &lt;- int_end(my_int)
+end</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMjAxOC0wOC0xOCAxMDozMDozMiBHTVRcIlxuIn0= -->
+<pre><code>[1] &quot;2018-08-18 10:30:32 GMT&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBGbGlwIGFuIGludGVydmFsXG50bmlfeW0gPC0gaW50X2ZsaXAobXlfaW50KVxudG5pXG5gYGAifQ== -->
+<pre class="r"><code># Flip an interval
+tni_ym &lt;- int_flip(my_int)
+tni</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIDIwMTgtMDgtMTggMDk6NTA6MjkgR01ULS0yMDE4LTA4LTA5IDEyOjMwOjMwIEdNVFxuIn0= -->
 <pre><code>[1] 2018-08-18 09:50:29 GMT--2018-08-09 12:30:30 GMT</code></pre>
@@ -468,12 +522,35 @@ bday</code></pre>
 </ul>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubXlfaW50X2RcblxuYGBgIn0= -->
-<pre class="r"><code>my_int_d
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDcmVhdGUgZHVyYXRpb25zXG5kIDwtIGRkYXlzKDE0KVxuZFxuYGBgIn0= -->
+<pre class="r"><code># Create durations
+d &lt;- ddays(14)
+d</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiNzY3OTk5LjcwODQ0MjIxMXMgKH4xLjI3IHdlZWtzKVwiXG4ifQ== -->
-<pre><code>[1] &quot;767999.708442211s (~1.27 weeks)&quot;</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMTIwOTYwMHMgKH4yIHdlZWtzKVwiXG4ifQ== -->
+<pre><code>[1] &quot;1209600s (~2 weeks)&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudyA8LSBkd2Vla3MoMTA0KVxud1xuYGBgIn0= -->
+<pre class="r"><code>w &lt;- dweeks(104)
+w</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiNjI4OTkyMDBzICh+MS45OSB5ZWFycylcIlxuIn0= -->
+<pre><code>[1] &quot;62899200s (~1.99 years)&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDcmVhdGUgZHVyYXRpb24gZnJvbSBudW1lcmljXG5hcy5kdXJhdGlvbigxMDApXG5gYGAifQ== -->
+<pre class="r"><code># Create duration from numeric
+as.duration(100)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMTAwcyAofjEuNjcgbWludXRlcylcIlxuIn0= -->
+<pre><code>[1] &quot;100s (~1.67 minutes)&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDcmVhdGUgZHVyYXRpb24gZnJvbSBhIHRpbWUgaW50ZXJ2YWxcbm15X2ludF9kIDwtIGFzLmR1cmF0aW9uKG15X2ludClcbm15X2ludF9kXG5gYGAifQ== -->
+<pre class="r"><code># Create duration from a time interval
+my_int_d &lt;- as.duration(my_int)
+my_int_d</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiOTc3MDQ2Ni42MjAyNjMzNHMgKH4xNi4xNSB3ZWVrcylcIlxuIn0= -->
+<pre><code>[1] &quot;9770466.62026334s (~16.15 weeks)&quot;</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -485,24 +562,47 @@ bday</code></pre>
 </ul>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubXlfaW50X3BcblxuYGBgIn0= -->
-<pre class="r"><code>my_int_p
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDcmVhdGUgcGVyaW9kc1xucCA8LSBtb250aHMoMykgKyBkYXlzKDEyKVxucFxuYGBgIn0= -->
+<pre class="r"><code># Create periods
+p &lt;- months(3) + days(12)
+p</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiOGQgMjFIIDE5TSA1OS43MDg0NDIyMTExNTExU1wiXG4ifQ== -->
-<pre><code>[1] &quot;8d 21H 19M 59.7084422111511S&quot;</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiM20gMTJkIDBIIDBNIDBTXCJcbiJ9 -->
+<pre><code>[1] &quot;3m 12d 0H 0M 0S&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDcmVhdGUgYSBwZXJpb2QgZnJvbSBhIHRpbWUgaW50ZXJ2YWxcbm15X2ludF9wIDwtIGFzLnBlcmlvZChteV9pbnQpXG5teV9pbnRfcFxuYGBgIn0= -->
+<pre class="r"><code># Create a period from a time interval
+my_int_p &lt;- as.period(my_int)
+my_int_p</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiLTNtIC0yMmQgLTJIIC0xTSAtNi42MjAyNjMzMzgwODg5OVNcIlxuIn0= -->
+<pre><code>[1] &quot;-3m -22d -2H -1M -6.62026333808899S&quot;</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p><strong>Why two classes?</strong></p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWludXRlcygyKSAjIHBlcmlvZFxuIyMgMiBtaW51dGVzXG5kbWludXRlcygyKSAjIGR1cmF0aW9uXG4jIyAxMjBzICh+MiBtaW51dGVzKVxuYGBgIn0= -->
-<pre class="r"><code>minutes(2) # period
-## 2 minutes
-dminutes(2) # duration
-## 120s (~2 minutes)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWludXRlcygyKSAjIHBlcmlvZFxuYGBgIn0= -->
+<pre class="r"><code>minutes(2) # period</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMk0gMFNcIlxuIn0= -->
+<pre><code>[1] &quot;2M 0S&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyMgMiBtaW51dGVzXG5kbWludXRlcygyKSAjIGR1cmF0aW9uXG5gYGAifQ== -->
+<pre class="r"><code>## 2 minutes
+dminutes(2) # duration</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMTIwcyAofjIgbWludXRlcylcIlxuIn0= -->
+<pre><code>[1] &quot;120s (~2 minutes)&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyMgMTIwcyAofjIgbWludXRlcylcbm15X2ludF9kID09IG15X2ludF9wXG5gYGAifQ== -->
+<pre class="r"><code>## 120s (~2 minutes)
+my_int_d == my_int_p</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIEZBTFNFXG4ifQ== -->
+<pre><code>[1] FALSE</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p><em>Comparing the “timeline” and the “number line”</em></p>
@@ -562,12 +662,58 @@ ymd(20120101) + years(1)</code></pre>
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBJcyBteSBkYXRlIHdpdGhpbiBhbiBpbnRlcnZhbD9cbmEgPSB5bWQoMjAxNzAxMDEpXG5hXG5gYGAifQ== -->
+<pre class="r"><code># Is my date within an interval?
+a = ymd(20170101)
+a</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMjAxNy0wMS0wMVwiXG4ifQ== -->
+<pre><code>[1] &quot;2017-01-01&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYSAld2l0aGluJSBteV9pbnRcbmBgYCJ9 -->
+<pre class="r"><code>a %within% my_int</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIEZBTFNFXG4ifQ== -->
+<pre><code>[1] FALSE</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYiA9IGEgKyB5ZWFycygxKSArIG1vbnRocyg3KSArIGRheXMoMTApXG5iXG5gYGAifQ== -->
+<pre class="r"><code>b = a + years(1) + months(7) + days(10)
+b</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiMjAxOC0wOC0xMVwiXG4ifQ== -->
+<pre><code>[1] &quot;2018-08-11&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYiAld2l0aGluJSBteV9pbnRcbmBgYCJ9 -->
+<pre class="r"><code>b %within% my_int</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIEZBTFNFXG4ifQ== -->
+<pre><code>[1] FALSE</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBZb3UgdHJ5XG4jIEhvdyBtYW55IHNlY29uZHMgaW4gNiBtb250aHM/XG4jIENyZWF0ZSBhIHBlcmlvZCBvZiAyIHNlY29uZHMgYW5kIDM0IG1pbGxpc2Vjb25kc1xuIyBBZGQgZm91ciBob3VycyBvbnRvIG5vdyBhbmQgc2F2ZSBhcyBiZWR0aW1lXG4jIFdoYXQgaW50ZXJ2YWwgaW4gdGltZSBoYXMgcGFzc2VkIHNpbmNlIHlvdXIgYmlydGhkYXkgYW5kIG5vdz9cbiMgSG93IG9sZCBhcmUgeW91IGluIHNlY29uZHMgYXQgdGhpcyBwb2ludCBpbiB0aW1lP1xuIyBDcmVhdGUgYW4gaW50ZXJ2YWwgb2YgdGltZSBmcm9tIGJlZ2lubmluZyBvZiB0aGlzIHllYXIgdG8gbm93XG4jIEhhcyB5b3VyIGJpcnRoZGF5IHRoaXMgeWVhciBvY2N1cmVkIHdpdGhpbiB0aGlzIGludGVydmFsP1xuIyBIb3cgbG9uZyB1bnRpbCB5b3UgdHVybiAxMDAgeWVhcnMgb2xkPyFcbmBgYCJ9 -->
+<pre class="r"><code># You try
+# How many seconds in 6 months?
+# Create a period of 2 seconds and 34 milliseconds
+# Add four hours onto now and save as bedtime
+# What interval in time has passed since your birthday and now?
+# How old are you in seconds at this point in time?
+# Create an interval of time from beginning of this year to now
+# Has your birthday this year occured within this interval?
+# How long until you turn 100 years old?!</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
 </div>
 </div>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUi1MYWRpZXMgQ2FwZSBUb3duOiBXaGF0J3MgaW4gYSBkYXRlPyIKYXV0aG9yOiAiTWVnYW4gQmVja2V0dCIKZGF0ZTogIjE2IEF1Z3VzdCAyMDE4IgpvdXRwdXQ6CiAgaHRtbF9ub3RlYm9vazoKICAgIGZpZ19oZWlnaHQ6IDQuNQogICAgZmlnX3dpZHRoOiA3CiAgICB0b2M6IHllcwotLS0KIyBPdmVydmlldwpEYXRlLXRpbWUgZGF0YSBjYW4gYmUgZnJ1c3RyYXRpbmcgdG8gd29yayB3aXRoIGluIFIuIFIgY29tbWFuZHMgZm9yIGRhdGUtdGltZXMgYXJlIGdlbmVyYWxseSB1bmludHVpdGl2ZSBhbmQgY2hhbmdlIGRlcGVuZGluZyBvbiB0aGUgdHlwZSBvZiBkYXRlLXRpbWUgb2JqZWN0IGJlaW5nIHVzZWQuIE1vcmVvdmVyLCB0aGUgbWV0aG9kcyB3ZSB1c2Ugd2l0aCBkYXRlLXRpbWVzIG11c3QgYmUgcm9idXN0IHRvIHRpbWUgem9uZXMsIGxlYXAgZGF5cywgZGF5bGlnaHQgc2F2aW5ncyB0aW1lcywgYW5kIG90aGVyIHRpbWUgcmVsYXRlZCBxdWlya3MsIGFuZCBSIGxhY2tzIHRoZXNlIGNhcGFiaWxpdGllcyBpbiBzb21lIHNpdHVhdGlvbnMuIEx1YnJpZGF0ZSBtYWtlcyBpdCBlYXNpZXIgdG8gZG8gdGhlIHRoaW5ncyBSIGRvZXMgd2l0aCBkYXRlLXRpbWVzIGFuZCBwb3NzaWJsZSB0byBkbyB0aGUgdGhpbmdzIFIgZG9lcyBub3QuCgojIFJlc291cmNlcwotIE1ha2Ugc3VyZSB5b3UgY2hlY2sgb3V0IHRoZSB2ZXJ5IGhhbmR5IFItU3R1ZGlvIGNoZWF0c2hlZXQ6IGh0dHBzOi8vcmF3Z2l0LmNvbS9yc3R1ZGlvL2NoZWF0c2hlZXRzL21hc3Rlci9sdWJyaWRhdGUucGRmCi0gVGhlIGNoYXB0ZXIgaW4gUiBmb3IgRGF0YSBTY2llbmNlIG9uIGRhdGVzIGFuZCB0aW1lczogaHR0cDovL3I0ZHMuaGFkLmNvLm56L2RhdGVzLWFuZC10aW1lcy5odG1sCgojIEx1YnJpZGF0ZSB0dXRvcmlhbApMZXQncyBleHBsb3JlIHNvbWUgb2YgdGhlIGZ1bmN0aW9ucyB3aXRoaW4gdGhlIGx1YnJpZGF0ZSBwYWNrYWdlLgoKIyMgQnV0IGZpcnN0LCBpbnN0YWxsYXRpb24hCmBgYHtyfQojIFRoZSBlYXNpZXN0IHdheSB0byBnZXQgbHVicmlkYXRlIGlzIHRvIGluc3RhbGwgdGhlIHdob2xlIHRpZHl2ZXJzZToKaW5zdGFsbC5wYWNrYWdlcygidGlkeXZlcnNlIikKCiMgQWx0ZXJuYXRpdmVseSwgaW5zdGFsbCBqdXN0IGx1YnJpZGF0ZToKaW5zdGFsbC5wYWNrYWdlcygibHVicmlkYXRlIikKCiMgT3IgdGhlIHRoZSBkZXZlbG9wbWVudCB2ZXJzaW9uIGZyb20gR2l0SHViOgojIGluc3RhbGwucGFja2FnZXMoImRldnRvb2xzIikKZGV2dG9vbHM6Omluc3RhbGxfZ2l0aHViKCJ0aWR5dmVyc2UvbHVicmlkYXRlIikKYGBgCgpTb21lIG9mIHRoZXNlIGZ1bmN0aW9ucyBjYW4gYmUgZG9uZSB1c25nIHN0cnB0aW1lIGFuZCBzdHJmdGltZSBpbiBiYXNlIFIgYnV0IHdlIHdpbGwgYmUgZm9jdXNpbmcgb24gbHVicmlkYXRlLgoKIyMgTG9hZCBwYWNrYWdlCmBgYHtyfQpsaWJyYXJ5KGx1YnJpZGF0ZSkKYGBgCiMjIyBRdWljayBub3RlOgpQT1NJLi4uLndoYXQ/ClRoZXJlIGFyZSB0d28gaW50ZXJuYWwgaW1wbGVtZW50YXRpb25zIG9mIGRhdGUvdGltZTogUE9TSVhjdCwgd2hpY2ggc3RvcmVzIHNlY29uZHMgc2luY2UgVU5JWCBlcG9jaCAoK3NvbWUgb3RoZXIgZGF0YSksIGFuZCBQT1NJWGx0LCB3aGljaCBzdG9yZXMgYSBsaXN0IG9mIGRheSwgbW9udGgsIHllYXIsIGhvdXIsIG1pbnV0ZSwgc2Vjb25kLCBldGMuCgojIyBMdWJyaWRhdGUgZmVhdHVyZXMKIyMjIFJlZmVyZW5jZSBwb2ludHMKYGBge3J9CnRvZGF5ID0gdG9kYXkoKQp0b2RheQpub3cgPSBub3coKQpub3cKYGBgCgojIyMgUGFyc2luZyBkYXRlcyBhbmQgdGltZXMKVG8gY3JlYXRlIFBPU0lYbHQgb2JqZWN0cyBmcm9tIHN0cmluZ3MsIGx1YnJpZGF0ZSBoYXMgYSBudW1iZXIgb2YgYXB0bHkgbmFtZWQgZnVuY3Rpb25zOgotIHltZCgpLCB5bWRfaG1zLCBkbXkoKSwgZG15X2htcywgbWR5KCksIOKApgoKYGBge3J9CiMgV2hlbiBpcyBXb21lbidzIGRheT8KCnltZCgiMjAxODA4MDkiKQptZHkoIjA4LTA5LTIwMTgiKQpkbXkoIjA5LzA4LzIwMTgiKQpgYGAKCmBgYHtyfQojIFlvdSB0cnkKCiMgUGFyc2UgYXMgZGF0ZQpfX18oIjE3IFNlcCAyMDE4IikKCl9fX18oIk1hcmNoIDYsIDE5NTciKQoKIyBQYXJzZSBhcyBkYXRlIGFuZCB0aW1lICh3aXRoIG5vIHNlY29uZHMhKQpfX19fXygiSnVseSAxNSwgMjAxMiAxMjo1NiIpCgojIFBhcnNlIGFzIGRhdGUtdGltZSAod2l0aCBzZWNvbmRzKQpfX19fX18oJzIwMTEtMDQtMDYgMDg6MDA6MTAnKQoKIyBQYXJzZSBhbGwgYXMgZGF0ZXMKeCA8LSBjKCIyMDA5LTAxLTAxIiwgIjIwMDktMDEtMDIiLCAiMjAwOS0wMS0wMyIpCl9fXyh4KQoKIyBGb3JtYXQgdG8gZGlzcGxheSBkYXRlIGFzICIyMDE4LTAxLTAxIgpfX18oMTgwMTAxLCAxODAxMDIpCgojIEZvcm1hdCB0byBkaXNwbGF5ICIyMDEwLTAyLTAxIgpfX18oMDEwMjEwKQoKIyBGb3JtYXQgdG8gZGlzcGxheSAiMjAxMC0wMS0wMiIKX19fKDAxMDIxMCkKCmBgYApZb3Ugc2VlIHRoYXQgdGhlc2UgZnVuY3Rpb25zIGNvbnRhaW4gdGhlIGZvcm1hdHRpbmcgb2YgdGhlIHN0cmluZyBpbiB0aGVpciBuYW1lLiBJbiBhZGRpdGlvbiwgdGhleSBhcmUgcm9idXN0IGluIHdoaWNoIHNlcGFyYXRvcnMgYXJlIHVzZWQgKGUuZy4gOiBvciAgLSkuIE5vdGUgdGhhdCB5b3UgY2FuIHNldCB0aGUgdHogaW5wdXQgYXJndW1lbnQgdG8gc2V0IHRoZSB0aW1lem9uZS4KCiMjIyBFeHRyYWN0aW5nIGluZm9ybWF0aW9uIGZyb20gZGF0ZS10aW1lcwoKYGBge3J9CndvbWVuc2RheTwteW1kX2htcygiMjAxOC0wOC0wOS0xMi0zMC0zMCIsIHR6PSJHTVQiKQp3b21lbnNkYXkKCiMgRXh0cmFjdCBvbmx5IHRoZSBkYXRlCmRhdGUod29tZW5zZGF5KQoKIyBJcyBpdCBhIGxlYXAgeWVhcj8KbGVhcF95ZWFyKHdvbWVuc2RheSkKYGBgCgojIyMgR0VUIGNvbXBvbmVudHMgb2YgZGF0ZS10aW1lcwpHZXR0aW5nIHVzZWZ1bCBpbmZvcm1hdGlvbiB1c2luZyBmdW5jdGlvbnMgc3VjaCBhcyB5ZWFyKCksIG1vbnRoKCksIG1kYXkoKSwgaG91cigpLCBtaW51dGUoKSBhbmQgc2Vjb25kKCk6CgpgYGB7cn0KeWVhcih3b21lbnNkYXkpCm1vbnRoKHdvbWVuc2RheSkKd2Vlayh3b21lbnNkYXkpCndkYXkod29tZW5zZGF5KQp3ZGF5KHdvbWVuc2RheSwgbGFiZWw9VFJVRSkKeWRheSh3b21lbnNkYXkpCmhvdXIod29tZW5zZGF5KQoKYGBgCmBgYHtyfQojIFlvdSB0cnkKIyBTYXZlIHlvdXIgYmlydGhkYXkgYXMgYSBkYXRlLXRpbWUgb2JqZWN0IChtYWtlIHVwIGEgdGltZSBpZiB5b3UgZG9uJ3Qga25vdyEpCmJkYXkgPC0gX19fX19fXygpCgojIFdoYXQgbnVtYmVyIHdlZWsgaW4gdGhlIHllYXIgd2VyZSB5b3UgYm9ybj8KX19fX18oYmRheSkKCiMgV2hhdCBudW1iZXIgZGF5IGluIHRoZSB5ZWFyIHdlcmUgeW91IGJvcm4KX19fXyhiZGF5KQoKIyBXZXJlIHlvdSBib3JuIGluIGEgbGVhcCB5ZWFyPwpfX19fKGJkYXkpCgojIFdoYXQgZGF5IG9mIHRoZSB3ZWVrIHdlcmUgeW91IGJvcm4/IFByaW50IG91dCB0aGUgZnVsbCwgdW5hYmJyZXZpYXRlZCB3ZWVrZGF5Cl9fX18oYmRheSkKCgpgYGAKCiMjIyBTRVQgY29tcG9uZW50cyBvZiBkYXRlLXRpbWUKTHVicmlkYXRlIGNhbiBiZSB1c2VkIHRvIG5vdCBvbmx5IGV4dHJhY3QgYnV0IGFsc28gY2hhbmdlIHBydHMgb2YgZGF0ZS10aW1lIG9iamVjdHMKCmBgYHtyfQptb250aCh3b21lbnNkYXkpIDwtIDEyCndvbWVuc2RheQoKc2Vjb25kKHdvbWVuc2RheSkgPC05OQp3b21lbnNkYXkKCiMgVXNlIHVwZGF0ZSB0byBjaGFuZ2UgbXVsdGlwbGUgdmFsdWVzCnlvdXRoZGF5ID0gdXBkYXRlKHdvbWVuc2RheSwgeWVhciA9IDE5NzYsIGRheSA9IDE2LCBtb250aCA9IDYsIGhvdXIgPSA4KQoKYGBgCgpgYGB7cn0KIyBZb3UgdHJ5CiMgQ2hhbmdlIHlvdXIgYmlydGggZGF0ZSB0byB5b3VyIGJpcnRoZGF5IHRoaXMgeWVhcgoKX19fX18oYmRheSkgPC0gX19fXwpiZGF5CmBgYAoKIyMjIEFyaXRobWV0aWMgd2l0aCBkYXRlcwojIyMjIFNvbWUgaW1wb3J0YW50IHRpbWUgc3BhbnMKCioqaW50ZXJ2YWxzKioKCi0gVGhlIHRpbWUgaW5mb3JtYXRpb24gYmV0d2VlbiB0d28gcG9pbnRzIGluIHRpbWUuIAotIEludGVydmFscyBhcmUgc3BlY2lmaWMgdGltZSBzcGFucyAoYmVjYXVzZSB0aGV5IGFyZSB0aWVkIHRvIHNwZWNpZmljIGRhdGVzKS4KLSBDYW4gYmUgY3JlYXRlZCBieSBzdWJ0cmFjdGluZyB0d28gaW5zdGFudHMsIG9yIHVzaW5nIHRoZSBgbmV3X2ludGVydmFsYCBmdW5jdGlvbi4KCmBgYHtyfQojIENyZWF0ZSBhbiBpbnRlcnZhbCBpbiB0aW1lCm15X2ludCA8LSBpbnRlcnZhbCh3b21lbnNkYXksIG5vdykKbXlfaW50CgojIEFjY2VzcyB0aGUgc3RhcnQgb2YgYW4gaW50ZXJ2YWwKc3RhcnQgPC0gaW50X3N0YXJ0KG15X2ludCkKc3RhcnQKCiMgQWNjZXNzIHRoZSBlbmQgcG9pbnQgb2YgYW4gaW50ZXJ2YWwKZW5kIDwtIGludF9lbmQobXlfaW50KQplbmQKCiMgRmxpcCBhbiBpbnRlcnZhbAp0bmlfeW0gPC0gaW50X2ZsaXAobXlfaW50KQp0bmkKYGBgCgoKTHVicmlkYXRlIGFsc28gcHJvdmlkZXMgdHdvIGhlbHBlciBmdW5jdGlvbnMgZm9yICpnZW5lcmFsKiB0aW1lIHNwYW5zOgoKKipkdXJhdGlvbnMqKiAKCi0gV2hpY2ggbWVhc3VyZSB0aGUgZXhhY3QgYW1vdW50IG9mIHRpbWUgYmV0d2VlbiB0d28gcG9pbnRzLgotIERpZCB5b3Uga25vdyBzZWNvbmRzIGFyZSB0aGUgb25seSB0aW1lIHVuaXQgd2l0aCBhIGNvbnNpc3RlbnQgbGVuZ3RoPyEgRHVyYXRpb25zIGFyZSBhbHdheXMgbWVhc3VyZWQgaW4gc2Vjb25kcy4KLSBIZWxwZXIgZnVuY3Rpb25zIGZvciBjcmVhdGluZyBkdXJhdGlvbnMgYXJlIG5hbWVkIGFmdGVyIHRoZSB1bml0cyBvZiB0aW1lIChwbHVyYWwpIGJ1dCBiZWdpbiB3aXRoIGEg4oCcZOKAnSAoZm9yIGR1cmF0aW9uKS4KLSBGb3IgZXhhbXBsZSBgZGhvdXJzYCwgYGRzZWNvbmRzYAoKYGBge3J9CiMgQ3JlYXRlIGR1cmF0aW9ucwpkIDwtIGRkYXlzKDE0KQpkCncgPC0gZHdlZWtzKDEwNCkKdwoKIyBDcmVhdGUgZHVyYXRpb24gZnJvbSBhIHRpbWUgaW50ZXJ2YWwKbXlfaW50X2QgPC0gYXMuZHVyYXRpb24obXlfaW50KQpteV9pbnRfZApgYGAKCioqcGVyaW9kcyoqCgotIFdoaWNoIGFjY3VyYXRlbHkgdHJhY2sgY2xvY2sgdGltZXMgZGVzcGl0ZSBsZWFwIHllYXJzLCBsZWFwIHNlY29uZHMsIGFuZCBkYXkgbGlnaHQgc2F2aW5ncyB0aW1lCi0gSGVscGVyIGZ1bmN0aW9ucyBmb3IgY3JlYXRpbmcgcGVyaW9kcyBhcmUgbmFtZWQgYWZ0ZXIgdGhlIHVuaXRzIG9mIHRpbWUgKHBsdXJhbCkKLSBGb3IgZXhhbXBsZSwgeW91IHVzZSBmdW5jdGlvbnMgbGlrZSBgeWVhcnNgLCBgbW9udGhzYC4gTm90ZSB0aGF0IHRoZXNlIGFyZSBub3QgdGhlIHNhbWUgYXMgdGhlIGZ1bmN0aW9uIGB5ZWFyYCBhbmQgYG1vbnRoYC4KCmBgYHtyfQojIENyZWF0ZSBwZXJpb2RzCnAgPC0gbW9udGhzKDMpICsgZGF5cygxMikKcAoKIyBDcmVhdGUgYSBwZXJpb2QgZnJvbSBhIHRpbWUgaW50ZXJ2YWwKbXlfaW50X3AgPC0gYXMucGVyaW9kKG15X2ludCkKbXlfaW50X3AKCmBgYAoKKipXaHkgdHdvIGNsYXNzZXM/KioKCmBgYHtyfQptaW51dGVzKDIpICMgcGVyaW9kCiMjIDIgbWludXRlcwpkbWludXRlcygyKSAjIGR1cmF0aW9uCiMjIDEyMHMgKH4yIG1pbnV0ZXMpCmBgYAoKKkNvbXBhcmluZyB0aGUgInRpbWVsaW5lIiBhbmQgdGhlICJudW1iZXIgbGluZSIqCgotIFRoZSBkdXJhdGlvbnMgY2xhc3Mgd2lsbCBhbHdheXMgc3VwcGx5IG1hdGhlbWF0aWNhbGx5IHByZWNpc2UgcmVzdWx0cy4gCi0gQSBkdXJhdGlvbiB5ZWFyIHdpbGwgYWx3YXlzIGVxdWFsIDM2NSBkYXlzLiAKLSBQZXJpb2RzIGZsdWN0dWF0ZSB0aGUgc2FtZSB3YXkgdGhlIHRpbWVsaW5lIGRvZXMgdG8gZ2l2ZSBpbnR1aXRpdmUgcmVzdWx0cy4gVGhpcyBtYWtlcyB0aGVtIHVzZWZ1bCBmb3IgbW9kZWxsaW5nIGNsb2NrIHRpbWVzLgotIChmcm9tIGh0dHBzOi8vd3d3LnItc3RhdGlzdGljcy5jb20vMjAxMi8wMy9kby1tb3JlLXdpdGgtZGF0ZXMtYW5kLXRpbWVzLWluLXItd2l0aC1sdWJyaWRhdGUtMS0xLTAvKQoKCmBgYHtyfQpsZWFwX3llYXIoMjAxMSkKIyMgRkFMU0UKeW1kKDIwMTEwMTAxKSArIGR5ZWFycygxKQojIyAiMjAxMi0wMS0wMSBVVEMiCnltZCgyMDExMDEwMSkgKyB5ZWFycygxKQojIyAiMjAxMi0wMS0wMSBVVEMiCiAKbGVhcF95ZWFyKDIwMTIpCiMjIFRSVUUKeW1kKDIwMTIwMTAxKSArIGR5ZWFycygxKQojIyAiMjAxMi0xMi0zMSBVVEMiCnltZCgyMDEyMDEwMSkgKyB5ZWFycygxKQojIyAiMjAxMy0wMS0wMSBVVEMiCmBgYAoKCgo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUi1MYWRpZXMgQ2FwZSBUb3duOiBXaGF0J3MgaW4gYSBkYXRlPyIKYXV0aG9yOiAiTWVnYW4gQmVja2V0dCIKZGF0ZTogIjE2IEF1Z3VzdCAyMDE4IgpvdXRwdXQ6CiAgaHRtbF9ub3RlYm9vazoKICAgIGZpZ19oZWlnaHQ6IDQuNQogICAgZmlnX3dpZHRoOiA3CiAgICB0b2M6IHllcwotLS0KIyBPdmVydmlldwpEYXRlLXRpbWUgZGF0YSBjYW4gYmUgZnJ1c3RyYXRpbmcgdG8gd29yayB3aXRoIGluIFIuIFIgY29tbWFuZHMgZm9yIGRhdGUtdGltZXMgYXJlIGdlbmVyYWxseSB1bmludHVpdGl2ZSBhbmQgY2hhbmdlIGRlcGVuZGluZyBvbiB0aGUgdHlwZSBvZiBkYXRlLXRpbWUgb2JqZWN0IGJlaW5nIHVzZWQuIE1vcmVvdmVyLCB0aGUgbWV0aG9kcyB3ZSB1c2Ugd2l0aCBkYXRlLXRpbWVzIG11c3QgYmUgcm9idXN0IHRvIHRpbWUgem9uZXMsIGxlYXAgZGF5cywgZGF5bGlnaHQgc2F2aW5ncyB0aW1lcywgYW5kIG90aGVyIHRpbWUgcmVsYXRlZCBxdWlya3MsIGFuZCBSIGxhY2tzIHRoZXNlIGNhcGFiaWxpdGllcyBpbiBzb21lIHNpdHVhdGlvbnMuIEx1YnJpZGF0ZSBtYWtlcyBpdCBlYXNpZXIgdG8gZG8gdGhlIHRoaW5ncyBSIGRvZXMgd2l0aCBkYXRlLXRpbWVzIGFuZCBwb3NzaWJsZSB0byBkbyB0aGUgdGhpbmdzIFIgZG9lcyBub3QuCgojIFJlc291cmNlcwotIE1ha2Ugc3VyZSB5b3UgY2hlY2sgb3V0IHRoZSB2ZXJ5IGhhbmR5IFItU3R1ZGlvIGNoZWF0c2hlZXQ6IGh0dHBzOi8vcmF3Z2l0LmNvbS9yc3R1ZGlvL2NoZWF0c2hlZXRzL21hc3Rlci9sdWJyaWRhdGUucGRmCi0gVGhlIGNoYXB0ZXIgaW4gUiBmb3IgRGF0YSBTY2llbmNlIG9uIGRhdGVzIGFuZCB0aW1lczogaHR0cDovL3I0ZHMuaGFkLmNvLm56L2RhdGVzLWFuZC10aW1lcy5odG1sCgojIEx1YnJpZGF0ZSB0dXRvcmlhbApMZXQncyBleHBsb3JlIHNvbWUgb2YgdGhlIGZ1bmN0aW9ucyB3aXRoaW4gdGhlIGx1YnJpZGF0ZSBwYWNrYWdlLgoKIyMgQnV0IGZpcnN0LCBpbnN0YWxsYXRpb24hCmBgYHtyIG1lc3NhZ2U9RkFMU0Usd2FybmluZz1GQUxTRX0KIyBUaGUgZWFzaWVzdCB3YXkgdG8gZ2V0IGx1YnJpZGF0ZSBpcyB0byBpbnN0YWxsIHRoZSB3aG9sZSB0aWR5dmVyc2U6Cmluc3RhbGwucGFja2FnZXMoInRpZHl2ZXJzZSIpCgojIEFsdGVybmF0aXZlbHksIGluc3RhbGwganVzdCBsdWJyaWRhdGU6Cmluc3RhbGwucGFja2FnZXMoImx1YnJpZGF0ZSIpCgojIE9yIHRoZSB0aGUgZGV2ZWxvcG1lbnQgdmVyc2lvbiBmcm9tIEdpdEh1YjoKIyBpbnN0YWxsLnBhY2thZ2VzKCJkZXZ0b29scyIpCmRldnRvb2xzOjppbnN0YWxsX2dpdGh1YigidGlkeXZlcnNlL2x1YnJpZGF0ZSIpCmBgYAoKU29tZSBvZiB0aGVzZSBmdW5jdGlvbnMgY2FuIGJlIGRvbmUgdXNuZyBzdHJwdGltZSBhbmQgc3RyZnRpbWUgaW4gYmFzZSBSIGJ1dCB3ZSB3aWxsIGJlIGZvY3VzaW5nIG9uIGx1YnJpZGF0ZS4KCiMjIExvYWQgcGFja2FnZQpgYGB7ciBtZXNzYWdlPUZBTFNFLHdhcm5pbmc9RkFMU0V9CmxpYnJhcnkobHVicmlkYXRlKQoKYGBgCiMjIyBRdWljayBub3RlOgpQT1NJLi4uLndoYXQ/ClRoZXJlIGFyZSB0d28gaW50ZXJuYWwgaW1wbGVtZW50YXRpb25zIG9mIGRhdGUvdGltZTogUE9TSVhjdCwgd2hpY2ggc3RvcmVzIHNlY29uZHMgc2luY2UgVU5JWCBlcG9jaCAoK3NvbWUgb3RoZXIgZGF0YSksIGFuZCBQT1NJWGx0LCB3aGljaCBzdG9yZXMgYSBsaXN0IG9mIGRheSwgbW9udGgsIHllYXIsIGhvdXIsIG1pbnV0ZSwgc2Vjb25kLCBldGMuCgojIyBMdWJyaWRhdGUgZmVhdHVyZXMKIyMjIFJlZmVyZW5jZSBwb2ludHMKYGBge3J9CnRvZGF5ID0gdG9kYXkoKQp0b2RheQpub3cgPSBub3coKQpub3cKYGBgCgojIyMgUGFyc2luZyBkYXRlcyBhbmQgdGltZXMKVG8gY3JlYXRlIFBPU0lYbHQgb2JqZWN0cyBmcm9tIHN0cmluZ3MsIGx1YnJpZGF0ZSBoYXMgYSBudW1iZXIgb2YgYXB0bHkgbmFtZWQgZnVuY3Rpb25zOgotIHltZCgpLCB5bWRfaG1zLCBkbXkoKSwgZG15X2htcywgbWR5KCksIOKApgoKYGBge3J9CiMgV2hlbiBpcyBXb21lbidzIGRheT8KCnltZCgiMjAxODA4MDkiKQptZHkoIjA4LTA5LTIwMTgiKQpkbXkoIjA5LzA4LzIwMTgiKQpgYGAKCmBgYHtyIG1lc3NhZ2U9RkFMU0Usd2FybmluZz1GQUxTRX0KIyBZb3UgdHJ5CgojIFBhcnNlIGFzIGRhdGUKX19fKCIxNyBTZXAgMjAxOCIpCgpfX19fKCJNYXJjaCA2LCAxOTU3IikKCiMgUGFyc2UgYXMgZGF0ZSBhbmQgdGltZSAod2l0aCBubyBzZWNvbmRzISkKX19fX18oIkp1bHkgMTUsIDIwMTIgMTI6NTYiKQoKIyBQYXJzZSBhcyBkYXRlLXRpbWUgKHdpdGggc2Vjb25kcykKX19fX19fKCcyMDExLTA0LTA2IDA4OjAwOjEwJykKCiMgUGFyc2UgYWxsIGFzIGRhdGVzCnggPC0gYygiMjAwOS0wMS0wMSIsICIyMDA5LTAxLTAyIiwgIjIwMDktMDEtMDMiKQpfX18oeCkKCiMgRm9ybWF0IHRvIGRpc3BsYXkgZGF0ZSBhcyAiMjAxOC0wMS0wMSIKX19fKDE4MDEwMSwgMTgwMTAyKQoKIyBGb3JtYXQgdG8gZGlzcGxheSAiMjAxMC0wMi0wMSIKX19fKDAxMDIxMCkKCiMgRm9ybWF0IHRvIGRpc3BsYXkgIjIwMTAtMDEtMDIiCl9fXygwMTAyMTApCgpgYGAKWW91IHNlZSB0aGF0IHRoZXNlIGZ1bmN0aW9ucyBjb250YWluIHRoZSBmb3JtYXR0aW5nIG9mIHRoZSBzdHJpbmcgaW4gdGhlaXIgbmFtZS4gSW4gYWRkaXRpb24sIHRoZXkgYXJlIHJvYnVzdCBpbiB3aGljaCBzZXBhcmF0b3JzIGFyZSB1c2VkIChlLmcuIDogb3IgIC0pLiBOb3RlIHRoYXQgeW91IGNhbiBzZXQgdGhlIHR6IGlucHV0IGFyZ3VtZW50IHRvIHNldCB0aGUgdGltZXpvbmUuCgojIyMgRXh0cmFjdGluZyBpbmZvcm1hdGlvbiBmcm9tIGRhdGUtdGltZXMKCmBgYHtyfQp3b21lbnNkYXk8LXltZF9obXMoIjIwMTgtMDgtMDktMTItMzAtMzAiLCB0ej0iR01UIikKd29tZW5zZGF5CgojIEV4dHJhY3Qgb25seSB0aGUgZGF0ZQpkYXRlKHdvbWVuc2RheSkKCiMgSXMgaXQgYSBsZWFwIHllYXI/CmxlYXBfeWVhcih3b21lbnNkYXkpCmBgYAoKIyMjIEdFVCBjb21wb25lbnRzIG9mIGRhdGUtdGltZXMKR2V0dGluZyB1c2VmdWwgaW5mb3JtYXRpb24gdXNpbmcgZnVuY3Rpb25zIHN1Y2ggYXMgeWVhcigpLCBtb250aCgpLCBtZGF5KCksIGhvdXIoKSwgbWludXRlKCkgYW5kIHNlY29uZCgpOgoKYGBge3J9CnllYXIod29tZW5zZGF5KQptb250aCh3b21lbnNkYXkpCndlZWsod29tZW5zZGF5KQp3ZGF5KHdvbWVuc2RheSkKd2RheSh3b21lbnNkYXksIGxhYmVsPVRSVUUpCnlkYXkod29tZW5zZGF5KQpob3VyKHdvbWVuc2RheSkKCmBgYApgYGB7ciBtZXNzYWdlPUZBTFNFLHdhcm5pbmc9RkFMU0V9CiMgWW91IHRyeQojIFNhdmUgeW91ciBiaXJ0aGRheSBhcyBhIGRhdGUtdGltZSBvYmplY3QgKG1ha2UgdXAgYSB0aW1lIGlmIHlvdSBkb24ndCBrbm93ISkKYmRheSA8LSBfX19fX19fKCkKCiMgV2hhdCBudW1iZXIgd2VlayBpbiB0aGUgeWVhciB3ZXJlIHlvdSBib3JuPwpfX19fXyhiZGF5KQoKIyBXaGF0IG51bWJlciBkYXkgaW4gdGhlIHllYXIgd2VyZSB5b3UgYm9ybgpfX19fKGJkYXkpCgojIFdlcmUgeW91IGJvcm4gaW4gYSBsZWFwIHllYXI/Cl9fX18oYmRheSkKCiMgV2hhdCBkYXkgb2YgdGhlIHdlZWsgd2VyZSB5b3UgYm9ybj8gUHJpbnQgb3V0IHRoZSBmdWxsLCB1bmFiYnJldmlhdGVkIHdlZWtkYXkKX19fXyhiZGF5KQoKCmBgYAoKIyMjIFNFVCBjb21wb25lbnRzIG9mIGRhdGUtdGltZQpMdWJyaWRhdGUgY2FuIGJlIHVzZWQgdG8gbm90IG9ubHkgZXh0cmFjdCBidXQgYWxzbyBjaGFuZ2UgcHJ0cyBvZiBkYXRlLXRpbWUgb2JqZWN0cwoKYGBge3J9Cm1vbnRoKHdvbWVuc2RheSkgPC0gMTIKd29tZW5zZGF5CgpzZWNvbmQod29tZW5zZGF5KSA8LTk5CndvbWVuc2RheQoKIyBVc2UgdXBkYXRlIHRvIGNoYW5nZSBtdWx0aXBsZSB2YWx1ZXMKeW91dGhkYXkgPSB1cGRhdGUod29tZW5zZGF5LCB5ZWFyID0gMTk3NiwgZGF5ID0gMTYsIG1vbnRoID0gNiwgaG91ciA9IDgpCgpgYGAKCmBgYHtyIG1lc3NhZ2U9RkFMU0Usd2FybmluZz1GQUxTRX0KIyBZb3UgdHJ5CiMgQ2hhbmdlIHlvdXIgYmlydGggZGF0ZSB0byB5b3VyIGJpcnRoZGF5IHRoaXMgeWVhcgoKYmRheV8yMDE4IDwtIF9fX18KYmRheV8yMDE4CmBgYAoKIyMjIEFyaXRobWV0aWMgd2l0aCBkYXRlcwojIyMjIFNvbWUgaW1wb3J0YW50IHRpbWUgc3BhbnMKCioqaW50ZXJ2YWxzKioKCi0gVGhlIHRpbWUgaW5mb3JtYXRpb24gYmV0d2VlbiB0d28gcG9pbnRzIGluIHRpbWUuIAotIEludGVydmFscyBhcmUgc3BlY2lmaWMgdGltZSBzcGFucyAoYmVjYXVzZSB0aGV5IGFyZSB0aWVkIHRvIHNwZWNpZmljIGRhdGVzKS4KLSBDYW4gYmUgY3JlYXRlZCBieSBzdWJ0cmFjdGluZyB0d28gaW5zdGFudHMsIG9yIHVzaW5nIHRoZSBgbmV3X2ludGVydmFsYCBmdW5jdGlvbi4KCmBgYHtyfQojIENyZWF0ZSBhbiBpbnRlcnZhbCBpbiB0aW1lCm15X2ludCA8LSBpbnRlcnZhbCh3b21lbnNkYXksIG5vdykKbXlfaW50CgojIEFjY2VzcyB0aGUgc3RhcnQgb2YgYW4gaW50ZXJ2YWwKc3RhcnQgPC0gaW50X3N0YXJ0KG15X2ludCkKc3RhcnQKCiMgQWNjZXNzIHRoZSBlbmQgcG9pbnQgb2YgYW4gaW50ZXJ2YWwKZW5kIDwtIGludF9lbmQobXlfaW50KQplbmQKCiMgRmxpcCBhbiBpbnRlcnZhbAp0bmlfeW0gPC0gaW50X2ZsaXAobXlfaW50KQp0bmkKYGBgCgoKTHVicmlkYXRlIGFsc28gcHJvdmlkZXMgdHdvIGhlbHBlciBmdW5jdGlvbnMgZm9yICpnZW5lcmFsKiB0aW1lIHNwYW5zOgoKKipkdXJhdGlvbnMqKiAKCi0gV2hpY2ggbWVhc3VyZSB0aGUgZXhhY3QgYW1vdW50IG9mIHRpbWUgYmV0d2VlbiB0d28gcG9pbnRzLgotIERpZCB5b3Uga25vdyBzZWNvbmRzIGFyZSB0aGUgb25seSB0aW1lIHVuaXQgd2l0aCBhIGNvbnNpc3RlbnQgbGVuZ3RoPyEgRHVyYXRpb25zIGFyZSBhbHdheXMgbWVhc3VyZWQgaW4gc2Vjb25kcy4KLSBIZWxwZXIgZnVuY3Rpb25zIGZvciBjcmVhdGluZyBkdXJhdGlvbnMgYXJlIG5hbWVkIGFmdGVyIHRoZSB1bml0cyBvZiB0aW1lIChwbHVyYWwpIGJ1dCBiZWdpbiB3aXRoIGEg4oCcZOKAnSAoZm9yIGR1cmF0aW9uKS4KLSBGb3IgZXhhbXBsZSBgZGhvdXJzYCwgYGRzZWNvbmRzYAoKYGBge3J9CiMgQ3JlYXRlIGR1cmF0aW9ucwpkIDwtIGRkYXlzKDE0KQpkCncgPC0gZHdlZWtzKDEwNCkKdwoKIyBDcmVhdGUgZHVyYXRpb24gZnJvbSBudW1lcmljCmFzLmR1cmF0aW9uKDEwMCkKCiMgQ3JlYXRlIGR1cmF0aW9uIGZyb20gYSB0aW1lIGludGVydmFsCm15X2ludF9kIDwtIGFzLmR1cmF0aW9uKG15X2ludCkKbXlfaW50X2QKCmBgYAoKKipwZXJpb2RzKioKCi0gV2hpY2ggYWNjdXJhdGVseSB0cmFjayBjbG9jayB0aW1lcyBkZXNwaXRlIGxlYXAgeWVhcnMsIGxlYXAgc2Vjb25kcywgYW5kIGRheSBsaWdodCBzYXZpbmdzIHRpbWUKLSBIZWxwZXIgZnVuY3Rpb25zIGZvciBjcmVhdGluZyBwZXJpb2RzIGFyZSBuYW1lZCBhZnRlciB0aGUgdW5pdHMgb2YgdGltZSAocGx1cmFsKQotIEZvciBleGFtcGxlLCB5b3UgdXNlIGZ1bmN0aW9ucyBsaWtlIGB5ZWFyc2AsIGBtb250aHNgLiBOb3RlIHRoYXQgdGhlc2UgYXJlIG5vdCB0aGUgc2FtZSBhcyB0aGUgZnVuY3Rpb24gYHllYXJgIGFuZCBgbW9udGhgLgoKYGBge3J9CiMgQ3JlYXRlIHBlcmlvZHMKcCA8LSBtb250aHMoMykgKyBkYXlzKDEyKQpwCgojIENyZWF0ZSBhIHBlcmlvZCBmcm9tIGEgdGltZSBpbnRlcnZhbApteV9pbnRfcCA8LSBhcy5wZXJpb2QobXlfaW50KQpteV9pbnRfcAoKYGBgCgoqKldoeSB0d28gY2xhc3Nlcz8qKgoKYGBge3J9Cm1pbnV0ZXMoMikgIyBwZXJpb2QKIyMgMiBtaW51dGVzCmRtaW51dGVzKDIpICMgZHVyYXRpb24KIyMgMTIwcyAofjIgbWludXRlcykKCm15X2ludF9kID09IG15X2ludF9wCgpgYGAKCipDb21wYXJpbmcgdGhlICJ0aW1lbGluZSIgYW5kIHRoZSAibnVtYmVyIGxpbmUiKgoKLSBUaGUgZHVyYXRpb25zIGNsYXNzIHdpbGwgYWx3YXlzIHN1cHBseSBtYXRoZW1hdGljYWxseSBwcmVjaXNlIHJlc3VsdHMuIAotIEEgZHVyYXRpb24geWVhciB3aWxsIGFsd2F5cyBlcXVhbCAzNjUgZGF5cy4gCi0gUGVyaW9kcyBmbHVjdHVhdGUgdGhlIHNhbWUgd2F5IHRoZSB0aW1lbGluZSBkb2VzIHRvIGdpdmUgaW50dWl0aXZlIHJlc3VsdHMuIFRoaXMgbWFrZXMgdGhlbSB1c2VmdWwgZm9yIG1vZGVsbGluZyBjbG9jayB0aW1lcy4KLSAoZnJvbSBodHRwczovL3d3dy5yLXN0YXRpc3RpY3MuY29tLzIwMTIvMDMvZG8tbW9yZS13aXRoLWRhdGVzLWFuZC10aW1lcy1pbi1yLXdpdGgtbHVicmlkYXRlLTEtMS0wLykKCgpgYGB7cn0KbGVhcF95ZWFyKDIwMTEpCiMjIEZBTFNFCnltZCgyMDExMDEwMSkgKyBkeWVhcnMoMSkKIyMgIjIwMTItMDEtMDEgVVRDIgp5bWQoMjAxMTAxMDEpICsgeWVhcnMoMSkKIyMgIjIwMTItMDEtMDEgVVRDIgogCmxlYXBfeWVhcigyMDEyKQojIyBUUlVFCnltZCgyMDEyMDEwMSkgKyBkeWVhcnMoMSkKIyMgIjIwMTItMTItMzEgVVRDIgp5bWQoMjAxMjAxMDEpICsgeWVhcnMoMSkKIyMgIjIwMTMtMDEtMDEgVVRDIgpgYGAKCmBgYHtyfQojIElzIG15IGRhdGUgd2l0aGluIGFuIGludGVydmFsPwoKYSA9IHltZCgyMDE3MDEwMSkKYQoKYSAld2l0aGluJSBteV9pbnQKCmIgPSBhICsgeWVhcnMoMSkgKyBtb250aHMoNykgKyBkYXlzKDEwKQpiCgpiICV3aXRoaW4lIG15X2ludApgYGAKCmBgYHtyfQojIFlvdSB0cnkKCiMgSG93IG1hbnkgc2Vjb25kcyBpbiA2IG1vbnRocz8KCgojIENyZWF0ZSBhIHBlcmlvZCBvZiAyIHNlY29uZHMgYW5kIDM0IG1pbGxpc2Vjb25kcwoKCiMgQWRkIGZvdXIgaG91cnMgb250byBub3cgYW5kIHNhdmUgYXMgYmVkdGltZQoKCiMgV2hhdCBpbnRlcnZhbCBpbiB0aW1lIGhhcyBwYXNzZWQgc2luY2UgeW91ciBiaXJ0aGRheSBhbmQgbm93PwoKCiMgSG93IG9sZCBhcmUgeW91IGluIHNlY29uZHMgYXQgdGhpcyBwb2ludCBpbiB0aW1lPwoKCiMgQ3JlYXRlIGFuIGludGVydmFsIG9mIHRpbWUgZnJvbSBiZWdpbm5pbmcgb2YgdGhpcyB5ZWFyIHRvIG5vdwoKCiMgSGFzIHlvdXIgYmlydGhkYXkgdGhpcyB5ZWFyIG9jY3VyZWQgd2l0aGluIHRoaXMgaW50ZXJ2YWw/CgoKIyBIb3cgbG9uZyB1bnRpbCB5b3UgdHVybiAxMDAgeWVhcnMgb2xkPyEKCgoKYGBgCgoK</div>
 
 
 
