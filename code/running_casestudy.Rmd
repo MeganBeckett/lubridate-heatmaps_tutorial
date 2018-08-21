@@ -26,7 +26,7 @@ library(RColorBrewer)
 
 # Read in data
 ```{r}
-activities <- read.csv("data/Activities.csv", stringsAsFactors = FALSE)
+activities <- read.csv("../data/Activities.csv", stringsAsFactors = FALSE)
 ```
 
 # Initial view of data
@@ -49,6 +49,7 @@ glimpse(activities)
 # Tidy up data
 ## Extract variables of interest
 Many of the columns are empty so let's create a smaller subset of those we are interested in
+
 ```{r}
 # Create subset of variables
 running <- subset(activities, select = c(Activity.Type, Date, Distance, Calories, Time, 
@@ -114,7 +115,7 @@ year_month <- running %>%
 
 ```{r}
 # Plot data
-
+# TODO
 ```
 
 # Heatmaps
@@ -161,7 +162,7 @@ ggplot(heatmap_runs_full, aes(x=hour, y=wday)) +
 
 ```{r}
 # Save plot
-ggsave("results/heatmap_weekly_counts.png", width = 10, height = 7)
+ggsave("../results/heatmap_weekly_counts.png", width = 10, height = 7)
 ```
 ## Weekly pattern - average distance run at different times during the week
 
@@ -187,6 +188,7 @@ ggplot(heatmap_dist_full, aes(x=hour, y=wday)) +
 ```
 
 Mmmm...that doesn't look right - what happened at 2pm on a Sunday?! Let's investigate.
+
 ```{r}
 running_outliers = subset(running, Distance >=50)
 running_outliers
@@ -223,7 +225,7 @@ ggplot(heatmap_dist_full, aes(x=hour, y=wday)) +
 
 ```{r}
 # Save plot
-ggsave("results/heatmap_weekly_dist.png", width = 10, height = 7)
+ggsave("../results/heatmap_weekly_dist.png", width = 10, height = 7)
 ```
 
 ## Calendar heat map

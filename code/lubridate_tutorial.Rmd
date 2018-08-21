@@ -186,7 +186,7 @@ end
 
 # Flip an interval
 tni_ym <- int_flip(my_int)
-tni
+tni_ym
 ```
 
 
