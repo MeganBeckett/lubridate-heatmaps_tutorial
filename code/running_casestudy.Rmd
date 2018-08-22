@@ -12,7 +12,7 @@ output:
 
 This follows on from investigating the lubridate package within the tidyverse and putting some of the features into practice by looking at running activity data over time.
 
-I was interested to investigate some ways of plotting my running activities over time. The data is a csv export from Garmin Connect.
+I was interested to investigate some ways of plotting my running activities over time. The data is a CSV export from Garmin Connect.
 
 # Load packages needed
 ```{r message=FALSE,warning=FALSE}
@@ -35,7 +35,7 @@ Notes:
 - I normally use a combination of str(), summary(), glimpse() to do this and recently explored skim().
 - For **skim()**, I like how it splits the summary statistics across variable type and shows a basic histogram for numerical types.
 - Missing values are also shown and this, along with the histograms, gives some indication of what to explore further.
-- Subsequent to this, I have now used the package **summarytools** and specifically, dfSummary(). The histogram plots are even better (although render quite small) and the developers are working to improve the html output to work with Rmarkdown. 
+- Subsequent to this, I have now used the package **summarytools** and specifically, dfSummary(). The histogram plots are even better (although render quite small) and the developers are working to improve the HTML output to work with R Markdown.
 - See this vignette: https://cran.r-project.org/web/packages/summarytools/vignettes/Recommendations-rmarkdown.html
 
 ```{r}
@@ -48,11 +48,11 @@ glimpse(activities)
 
 # Tidy up data
 ## Extract variables of interest
-Many of the columns are empty so let's create a smaller subset of those we are interested in
+Many of the columns are empty, so let's create a smaller subset of those we are interested in.
 
 ```{r}
 # Create subset of variables
-running <- subset(activities, select = c(Activity.Type, Date, Distance, Calories, Time, 
+running <- subset(activities, select = c(Activity.Type, Date, Distance, Calories, Time,
                                             Avg.Pace, Elev.Gain))
 
 # View the classes of the subset of data
@@ -71,7 +71,7 @@ running$Elev.Gain <- as.numeric(gsub(",", "", running$Elev.Gain))
 # Date-time columns (Date, Time, Avg.Pace, Best.Pace)
 running$Date = ymd_hms(activities$Date)
 
-# TODO Figure out how to convert different time durations to actual times 
+# TODO Figure out how to convert different time durations to actual times
 #running$Duration <- ms(running$Time)
 #running$Avg.Pace <- ms(running$Avg.Pace)
 #running$Best.Pace <- ms(running$Best.Pace)
@@ -86,7 +86,7 @@ View data again using summarytools package
 view(dfSummary(running), method = 'render')
 ```
 
-## Subset again to only look at last 3 full year's of data
+## Subset again to only look at last 3 full years of data
 ```{r}
 running <- subset(running, running$Date >= "2016-01-01")
 ```
@@ -104,7 +104,7 @@ running$wday <- factor(running$wday, levels = week)
 ```
 
 # Exploratory visualisation
-Use dplyr to group and summarise and and create some plots.
+Use dplyr to group and summarise and create some plots.
 
 ```{r}
 # Create summary
@@ -126,36 +126,36 @@ hour = c(0:23)
 grid = expand.grid(week, hour)
 
 # Group by week day, then hour and summarise by counting number of activities per group
-heatmap_runs <- running %>% 
-  group_by(wday, hour) %>% 
+heatmap_runs <- running %>%
+  group_by(wday, hour) %>%
   summarise(no_runs = n())
 
 # Join grid and heatmap_runs
-# If you don't do this, heatmap won't show the full week, and have blank tiles for missing values instead of rather showing 0 runs/activity
+# If you don't do this, the heatmap won't show the full week, and have blank tiles for missing values instead of rather showing 0 runs/activity
 heatmap_runs_full = heatmap_runs %>%
-  right_join(grid, by = c("wday"="Var1", "hour"="Var2")) 
+  right_join(grid, by = c("wday"="Var1", "hour"="Var2"))
 
 # Replace NA with 0
 heatmap_runs_full[is.na(heatmap_runs_full)] <- 0
 
 # Plot heatmap using ggplot
-ggplot(heatmap_runs_full, aes(x=hour, y=wday)) + 
-  geom_tile(aes(fill=no_runs), colour="white") + 
-  scale_fill_gradient(name = "No. of runs", low = "white", high =  "red") + 
+ggplot(heatmap_runs_full, aes(x=hour, y=wday)) +
+  geom_tile(aes(fill=no_runs), colour="white") +
+  scale_fill_gradient(name = "No. of runs", low = "white", high =  "red") +
   scale_x_continuous(breaks=seq(0,23,1)) + ggtitle("Heatmap showing weekly activity pattern")
 ```
 
 
 ```{r}
-# Using ColorBrewer to generate pallette
+# Using ColorBrewer to generate palette
 
 display.brewer.all()
 
 pal <- colorRampPalette(brewer.pal(9, "YlOrRd"))(100)
 
-ggplot(heatmap_runs_full, aes(x=hour, y=wday)) + 
-  geom_tile(aes(fill=no_runs), colour="white") + 
-  scale_fill_gradientn(name = "No. of runs", colours=c("white", pal)) + 
+ggplot(heatmap_runs_full, aes(x=hour, y=wday)) +
+  geom_tile(aes(fill=no_runs), colour="white") +
+  scale_fill_gradientn(name = "No. of runs", colours=c("white", pal)) +
   scale_x_continuous(breaks=seq(0,23,1)) + ggtitle("Heatmap showing weekly activity pattern")
 
 ```
@@ -168,22 +168,22 @@ ggsave("../results/heatmap_weekly_counts.png", width = 10, height = 7)
 
 ```{r}
 # Group by week day, then hour and summarise by calculating mean distance per group
-heatmap_dist <- running %>% 
-  group_by(wday, hour) %>% 
+heatmap_dist <- running %>%
+  group_by(wday, hour) %>%
   summarise(mean_dist = mean(Distance))
 
 # Join grid and heatmap_dist
 heatmap_dist_full = heatmap_dist %>%
-  right_join(grid, by = c("wday"="Var1", "hour"="Var2")) 
+  right_join(grid, by = c("wday"="Var1", "hour"="Var2"))
 
 # Replace NA with 0
 heatmap_dist_full[is.na(heatmap_dist_full)] <- 0
 
 # Plot heatmap using ggplot
 pal <- colorRampPalette(brewer.pal(9, "YlGnBu"))(100)
-ggplot(heatmap_dist_full, aes(x=hour, y=wday)) + 
-  geom_tile(aes(fill=mean_dist), colour="white") + 
-  scale_fill_gradientn(name = "Mean distance", colours=c("white", pal)) + 
+ggplot(heatmap_dist_full, aes(x=hour, y=wday)) +
+  geom_tile(aes(fill=mean_dist), colour="white") +
+  scale_fill_gradientn(name = "Mean distance", colours=c("white", pal)) +
   scale_x_continuous(breaks=seq(0,23,1)) + ggtitle("Heatmap showing weekly activity pattern")
 ```
 
@@ -195,31 +195,31 @@ running_outliers
 
 ```
 
-Firstly, look at the average pace of entries 345 and 352. This is rather quick for a run! As this is my own data, I know what these outliers are from!  These were actually cycles where I didn't classify the activities correctly. Secondly, the 65km entry on 13 August was when I used my Garmin watch to measure how far we travelled on a boat in Brazil :) So, let's remove these three entries. 
+Firstly, look at the average pace of entries 345 and 352. This is rather quick for a run! As this is my own data, I know what these outliers are from! These were actually cycles where I didn't classify the activities correctly. Secondly, the 65km entry on 13 August was when I used my Garmin watch to measure how far we travelled on a boat in Brazil :) So, let's remove these three entries.
 
 ```{r}
 running <- subset(running, Distance <=60)
 
-# And create the graphs again above. 
+# And create the graphs again above.
 # Repeated here just for ease of reference.
 
 # Group by week day, then hour and summarise by calculating mean distance per group
-heatmap_dist <- running %>% 
-  group_by(wday, hour) %>% 
+heatmap_dist <- running %>%
+  group_by(wday, hour) %>%
   summarise(mean_dist = mean(Distance))
 
 # Join grid and heatmap_dist
 heatmap_dist_full = heatmap_dist %>%
-  right_join(grid, by = c("wday"="Var1", "hour"="Var2")) 
+  right_join(grid, by = c("wday"="Var1", "hour"="Var2"))
 
 # Replace NA with 0
 heatmap_dist_full[is.na(heatmap_dist_full)] <- 0
 
 # Plot heatmap using ggplot
 pal <- colorRampPalette(brewer.pal(9, "YlGnBu"))(100)
-ggplot(heatmap_dist_full, aes(x=hour, y=wday)) + 
-  geom_tile(aes(fill=mean_dist), colour="white") + 
-  scale_fill_gradientn(name = "Mean distance", colours=c("white", pal)) + 
+ggplot(heatmap_dist_full, aes(x=hour, y=wday)) +
+  geom_tile(aes(fill=mean_dist), colour="white") +
+  scale_fill_gradientn(name = "Mean distance", colours=c("white", pal)) +
   scale_x_continuous(breaks=seq(0,23,1)) + ggtitle("Heatmap showing weekly activity pattern")
 ```
 
@@ -236,6 +236,3 @@ source ("calendarHeat.R")
 calendarHeat(running$Date, running$Distance, varname = "running activities and distances", color = "y2b", ncolors=20)
 
 ```
-
-
-

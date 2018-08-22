@@ -9,10 +9,10 @@ output:
     toc: yes
 ---
 # Overview
-Date-time data can be frustrating to work with in R. R commands for date-times are generally unintuitive and change depending on the type of date-time object being used. Moreover, the methods we use with date-times must be robust to time zones, leap days, daylight savings times, and other time related quirks, and R lacks these capabilities in some situations. Lubridate makes it easier to do the things R does with date-times and possible to do the things R does not.
+Date-time data can be frustrating to work with in R. R commands for date-times are generally unintuitive and change depending on the type of date-time object being used. Moreover, the methods we use with date-times must be robust to time zones, leap days, daylight savings times, and other time-related quirks, and R lacks these capabilities in some situations. Lubridate makes it easier to do the things R does with date-times and possible to do the things R does not.
 
 # Resources
-- Make sure you check out the very handy R-Studio cheatsheet: https://rawgit.com/rstudio/cheatsheets/master/lubridate.pdf
+- Make sure you check out the very handy RStudio cheatsheet: https://rawgit.com/rstudio/cheatsheets/master/lubridate.pdf
 - The chapter in R for Data Science on dates and times: http://r4ds.had.co.nz/dates-and-times.html
 
 # Lubridate tutorial
@@ -31,7 +31,7 @@ install.packages("lubridate")
 devtools::install_github("tidyverse/lubridate")
 ```
 
-Some of these functions can be done usng strptime and strftime in base R but we will be focusing on lubridate.
+Some of these functions can be done using strptime and strftime in base R but we will be focussing on lubridate.
 
 ## Load package
 ```{r message=FALSE,warning=FALSE}
@@ -140,7 +140,7 @@ ____(bday)
 ```
 
 ### SET components of date-time
-Lubridate can be used to not only extract but also change prts of date-time objects
+Lubridate can be used to not only extract but also change parts of date-time objects.
 
 ```{r}
 month(womensday) <- 12
@@ -167,7 +167,7 @@ bday_2018
 
 **intervals**
 
-- The time information between two points in time. 
+- The time information between two points in time.
 - Intervals are specific time spans (because they are tied to specific dates).
 - Can be created by subtracting two instants, or using the `new_interval` function.
 
@@ -192,7 +192,7 @@ tni_ym
 
 Lubridate also provides two helper functions for *general* time spans:
 
-**durations** 
+**durations**
 
 - Which measure the exact amount of time between two points.
 - Did you know seconds are the only time unit with a consistent length?! Durations are always measured in seconds.
@@ -246,8 +246,8 @@ my_int_d == my_int_p
 
 *Comparing the "timeline" and the "number line"*
 
-- The durations class will always supply mathematically precise results. 
-- A duration year will always equal 365 days. 
+- The durations class will always supply mathematically precise results.
+- A duration year will always equal 365 days.
 - Periods fluctuate the same way the timeline does to give intuitive results. This makes them useful for modelling clock times.
 - (from https://www.r-statistics.com/2012/03/do-more-with-dates-and-times-in-r-with-lubridate-1-1-0/)
 
@@ -259,7 +259,7 @@ ymd(20110101) + dyears(1)
 ## "2012-01-01 UTC"
 ymd(20110101) + years(1)
 ## "2012-01-01 UTC"
- 
+
 leap_year(2012)
 ## TRUE
 ymd(20120101) + dyears(1)
@@ -311,5 +311,3 @@ b %within% my_int
 
 
 ```
-
-
