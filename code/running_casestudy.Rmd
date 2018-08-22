@@ -12,7 +12,7 @@ output:
 
 This follows on from investigating the lubridate package within the tidyverse and putting some of the features into practice by looking at running activity data over time.
 
-I was interested to investigate some ways of plott my running activities over time. The data is a csv export from Garmin Connect.
+I was interested to investigate some ways of plotting my running activities over time. The data is a csv export from Garmin Connect.
 
 # Load packages needed
 ```{r message=FALSE,warning=FALSE}
