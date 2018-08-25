@@ -1,6 +1,6 @@
 # Tutorial: Working with dates and visualising patterns in data over time
 
-This tutorial was developed for our R-Ladies Cape Town meetup on 21 August 2018 to learn how to work with dates in R using the lubridate package, and then I've included a case study on analysing running activities over time and vislausing some patterns using various heatmaps.
+This tutorial was developed for our R-Ladies Cape Town meetup on 21 August 2018 to learn how to work with dates in R using the lubridate package, and then I've included a case study on analysing running activities over time and visualising some patterns using various heatmaps.
 
 To get started, open rladies_tutorial.Rproj file in R.
 
