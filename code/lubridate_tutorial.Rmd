@@ -154,12 +154,13 @@ youthday <- update(womensday, year = 1976, day = 16, month = 6, hour = 8)
 
 ```
 
-```{r message=FALSE,warning=FALSE}
+```{r}
 # You try
 # Change your birth date to your birthday this year
 
 bday_2018 <- ____
 bday_2018
+
 ```
 
 ### Arithmetic with dates

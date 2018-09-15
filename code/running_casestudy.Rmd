@@ -238,4 +238,3 @@ calendarHeat(running$Date, running$Distance, varname = "running activities and d
 ```
 
 
-
