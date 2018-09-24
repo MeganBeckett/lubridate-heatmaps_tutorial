@@ -236,8 +236,3 @@ source ("calendarHeat.R")
 calendarHeat(running$Date, running$Distance, varname = "running activities and distances", color = "y2b", ncolors=20)
 
 ```
-<<<<<<< HEAD
-
-
-=======
->>>>>>> b1a1cff6c76adb84db272af543df1ec3940595db
